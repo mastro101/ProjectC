@@ -2353,21 +2353,8 @@ MonoBehaviour:
   speed: 10
   timeForSequence: 1
   sequences:
-  - inputDatas:
-    - {fileID: 11400000, guid: 6c32d9fb331976243887b7399cb2d70f, type: 2}
-    - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}
-    - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}
-    - {fileID: 11400000, guid: 6c32d9fb331976243887b7399cb2d70f, type: 2}
-  - inputDatas:
-    - {fileID: 11400000, guid: 7955f2b022df0fd4195defee1e0f6450, type: 2}
-    - {fileID: 11400000, guid: 7955f2b022df0fd4195defee1e0f6450, type: 2}
-    - {fileID: 11400000, guid: d25ccdd777154654c8dfa5969a15bc0d, type: 2}
-    - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}
-  - inputDatas:
-    - {fileID: 11400000, guid: 6c32d9fb331976243887b7399cb2d70f, type: 2}
-    - {fileID: 11400000, guid: 7955f2b022df0fd4195defee1e0f6450, type: 2}
-    - {fileID: 11400000, guid: d25ccdd777154654c8dfa5969a15bc0d, type: 2}
-    - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}
+  - {fileID: 11400000, guid: c7ed93dc938510244836bd8b9d89281f, type: 2}
+  - {fileID: 11400000, guid: 2735bf2292da42948bca8d463a20a056, type: 2}
 --- !u!136 &1956826940
 CapsuleCollider:
   m_ObjectHideFlags: 0

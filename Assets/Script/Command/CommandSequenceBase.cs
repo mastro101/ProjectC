@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class CommandSequenceBase
+[CreateAssetMenu()]
+public class CommandSequenceBase : ScriptableObject
 {
-    ICommandController controller;
+    protected ICommandController controller;
     [SerializeField] public InputData[] inputDatas;
 
     public InputData currentInput { get; private set; }
@@ -43,7 +43,7 @@ public class CommandSequenceBase
                 currentInputIndex++;
                 onStartSequence?.Invoke(this);
                 onCorrectInput?.Invoke(currentInput);
-                if (currentInputIndex == inputDatas.Length - 1)
+                if (currentInputIndex == inputDatas.Length)
                 {
                     Execute();
                     ResetSequence();
