@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
 public class CommandSequenceBase : ScriptableObject
 {
     protected ICommandController controller;
