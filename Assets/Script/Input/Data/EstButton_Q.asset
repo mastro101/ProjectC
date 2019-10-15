@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a713178c650a7c4a8f9dbab391f672f, type: 3}
+  m_Name: EstButton_Q
+  m_EditorClassIdentifier: 
+  key: 113
+  XBoxKey: 331
+  keySprite: {fileID: 21300000, guid: 978bc2fad71fd444fa526e703f8f4b8c, type: 3}
+  XboxSprite: {fileID: 21300000, guid: 395f75d2821ad744c874e9b40e1ee00e, type: 3}
+  PSSprite: {fileID: 21300000, guid: c7eecc8d86dc1e14db840de4621a003a, type: 3}

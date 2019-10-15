@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a713178c650a7c4a8f9dbab391f672f, type: 3}
+  m_Name: SouthButton_Space
+  m_EditorClassIdentifier: 
+  key: 32
+  XBoxKey: 330
+  keySprite: {fileID: 21300000, guid: 4dab9c34a37b16a49bbd1fea0ee5bbe7, type: 3}
+  XboxSprite: {fileID: 21300000, guid: d910ec1002b112b42b3730add2d8abe5, type: 3}
+  PSSprite: {fileID: 21300000, guid: f55f3e872e3765f4fa24c2c50a55180a, type: 3}
