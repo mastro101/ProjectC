@@ -22,6 +22,7 @@ public class CommandSequenceBase : ScriptableObject
     public void Init(ICommandController controller)
     {
         this.controller = controller;
+        currentInputIndex = 0;
     }
 
     public virtual void Execute()

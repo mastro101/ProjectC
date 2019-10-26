@@ -7,10 +7,15 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     #region serialize
     [SerializeField] float speed;
     [SerializeField] float timeForSequence;
+    [SerializeField] [Range(0f, 1f)] float slowMoPercent;
+    [SerializeField] float timeForSlowMo;
+    public BulletBase bullet;
     public CommandSequenceBase[] sequences;
     #endregion
 
     Rigidbody rb;
+
+    public Vector3 aimDirection { get; private set; }
 
     public List<CommandSequenceBase> currentSequences { get; set; }
     CommandSequenceBase executedSequence;
@@ -21,6 +26,8 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     int consecutiveButtonPressed = -1;
     bool buttonJustPressed = false;
     float remainTime;
+
+    float slowMoRemainTime;
 
     private void Start()
     {
@@ -39,6 +46,9 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     private void Update()
     {
         HandleSequence();
+        Aim();
+        HandleFire();
+        HandleSlowMo();
     }
 
     private void FixedUpdate()
@@ -51,6 +61,48 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime, Space.World);
     }
 
+    void Aim()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit;
+        if (Physics.Raycast(ray, out raycastHit, Mathf.Infinity))
+        {
+            Vector3 raycastPoint = raycastHit.point;
+            Vector3 pointOnPlayerHight = new Vector3(raycastPoint.x, transform.position.y, raycastPoint.z);
+            Vector3 _direction = pointOnPlayerHight - transform.position;
+            aimDirection = _direction.normalized;
+        }
+    }
+
+    void HandleFire()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position, aimDirection);
+        }
+    }
+
+    void HandleSlowMo()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Time.timeScale = slowMoPercent;
+            slowMoRemainTime = Time.time + timeForSlowMo * slowMoPercent;
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            if (Time.time > slowMoRemainTime)
+                Time.timeScale = 1;
+        }
+        
+        if (Input.GetMouseButtonUp(1))
+        {
+            Time.timeScale = 1;
+        }
+    }
+
+    #region Sequence
     void HandleSequence()
     {
         buttonJustPressed = false;
@@ -100,7 +152,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
     void StartSequence()
     {
-        if (sequenceStarted == false) 
+        if (sequenceStarted == false)
             sequenceStarted = true;
     }
 
@@ -114,7 +166,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         remainTime = Time.time + timeForSequence;
         foreach (var sequence in currentSequences)
         {
-            if(sequence.GetInput(consecutiveButtonPressed) != sequence.currentInput)
+            if (sequence.GetInput(consecutiveButtonPressed) != sequence.currentInput)
             {
                 sequenceToRemove.Add(sequence);
             }
@@ -131,5 +183,6 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         currentSequences.Clear();
         sequenceStarted = false;
         Debug.Log("clean");
-    }
+    } 
+    #endregion
 }

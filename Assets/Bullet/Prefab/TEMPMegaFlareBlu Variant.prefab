@@ -10,7 +10,22 @@ PrefabInstance:
     - target: {fileID: 6586500018821149928, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
         type: 3}
       propertyPath: m_Name
-      value: TEMPMegaFlareBlu
+      value: TEMPMegaFlareBlu Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586500018821149934, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586500018821149934, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586500018821149934, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6586500018821149935, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
         type: 3}
@@ -67,20 +82,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6586500018821149934, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+    - target: {fileID: 3466907262301439822, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
         type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6586500018821149934, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6586500018821149934, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 1
+      propertyPath: ID
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214, type: 3}
