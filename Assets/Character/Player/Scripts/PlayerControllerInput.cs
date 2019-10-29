@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class PlayerControllerInput : MonoBehaviour , ICommandController
 {
-    #region serialize
-    [SerializeField] float speed;
-    [SerializeField] float timeForSequence;
-    [SerializeField] [Range(0f, 1f)] float slowMoPercent;
-    [SerializeField] float timeForSlowMo;
-    public BulletBase bullet;
-    public CommandSequenceBase[] sequences;
-    #endregion
+    [SerializeField] PlayerData playerData;
+    [SerializeField] Transform shootPosition;
 
     Rigidbody rb;
 
@@ -25,16 +19,14 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     bool sequenceStarted = false;
     int consecutiveButtonPressed = -1;
     bool buttonJustPressed = false;
-    float remainTime;
-
-    float slowMoRemainTime;
+    float sequenceRemainTime;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
 
         currentSequences = new List<CommandSequenceBase>();
-        foreach (var sequence in sequences)
+        foreach (var sequence in playerData.sequences)
         {
             sequence.Init(this);
             sequence.onStartSequence += s => StartSequence();
@@ -58,7 +50,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
     void Movement()
     {
-        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime, Space.World);
+        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * playerData.speed * Time.deltaTime, Space.World);
     }
 
     void Aim()
@@ -78,7 +70,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position, aimDirection);
+            BulletPoolManager.instance.TakeBullet(playerData.bullet).Shoot(shootPosition.position, aimDirection, this.gameObject);
         }
     }
 
@@ -86,13 +78,13 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     {
         if (Input.GetMouseButtonDown(1))
         {
-            Time.timeScale = slowMoPercent;
-            slowMoRemainTime = Time.time + timeForSlowMo * slowMoPercent;
+            Time.timeScale = playerData.slowMoPercent;
+            playerData.slowMoRemainTime = Time.time + playerData.timeForSlowMo * playerData.slowMoPercent;
         }
 
         if (Input.GetMouseButton(1))
         {
-            if (Time.time > slowMoRemainTime)
+            if (Time.time > playerData.slowMoRemainTime)
                 Time.timeScale = 1;
         }
         
@@ -109,7 +101,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
         if (sequenceStarted == false)
         {
-            foreach (var sequence in sequences)
+            foreach (var sequence in playerData.sequences)
             {
                 sequence.HandleInputSequence();
             }
@@ -146,7 +138,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
                 ResetSequences();
         }
 
-        if (sequenceStarted == true && (Time.time > remainTime))
+        if (sequenceStarted == true && (Time.time > sequenceRemainTime))
             ResetSequences();
     }
 
@@ -163,7 +155,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
             consecutiveButtonPressed++;
             buttonJustPressed = true;
         }
-        remainTime = Time.time + timeForSequence;
+        sequenceRemainTime = Time.time + playerData.timeForSequence;
         foreach (var sequence in currentSequences)
         {
             if (sequence.GetInput(consecutiveButtonPressed) != sequence.currentInput)

@@ -7,12 +7,16 @@ public abstract class BulletBase : MonoBehaviour
     public int ID;
     public State state { get; set; }
     public bool created { get; set; }
-
     [SerializeField] float duration;
+    //TODO: TEMP
+    [SerializeField] int damage;
+    //
     float returnTime;
+    GameObject shootable;
 
-    public virtual void Shoot(Vector3 shootPosition, Vector3 direction)
+    public virtual void Shoot(Vector3 shootPosition, Vector3 direction, GameObject _shootable)
     {
+        shootable = _shootable;
         transform.position = shootPosition;
         state = State.Shooted;
         returnTime = Time.time + duration;
@@ -43,5 +47,18 @@ public abstract class BulletBase : MonoBehaviour
     {
         Pooled,
         Shooted,
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (state == State.Shooted)
+        {
+            IDamageable damageable = other.GetComponentInParent<IDamageable>();
+            if (damageable != null)
+            {
+                if (damageable.gameObject != shootable)
+                    damageable.TakeDamage(damage);
+            }
+        }
     }
 }

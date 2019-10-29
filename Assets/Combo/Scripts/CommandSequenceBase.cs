@@ -19,7 +19,7 @@ public class CommandSequenceBase : ScriptableObject
         this.inputDatas = inputDatas;
     }
 
-    public void Init(ICommandController controller)
+    public virtual void Init(ICommandController controller)
     {
         this.controller = controller;
         currentInputIndex = 0;

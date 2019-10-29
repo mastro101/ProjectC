@@ -6,9 +6,9 @@ public class FireBullet : BulletBase
 {
     [SerializeField] ParticleSystem vfx;
 
-    public override void Shoot(Vector3 shootPosition, Vector3 direction)
+    public override void Shoot(Vector3 shootPosition, Vector3 direction, GameObject _shootable)
     {
-        base.Shoot(shootPosition, direction);
+        base.Shoot(shootPosition, direction, _shootable);
         vfx.Play();
     }
 

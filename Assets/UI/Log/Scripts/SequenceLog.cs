@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SequenceLog : MonoBehaviour
 {
-    [SerializeField] PlayerControllerInput player;
+    [SerializeField] PlayerData player;
     [Space]
     [SerializeField] GameObject key;
     [SerializeField] GameObject xBox;

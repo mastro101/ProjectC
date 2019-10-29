@@ -15,6 +15,6 @@ public class CommandMegaFlare : CommandSequenceBase
     public override void Execute()
     {
         base.Execute();
-        BulletPoolManager.instance.TakeBullet(flarePrefab).Shoot(controller.transform.position, controller.aimDirection);
+        BulletPoolManager.instance.TakeBullet(flarePrefab).Shoot(controller.transform.position, controller.aimDirection, controller.gameObject);
     }
 }
