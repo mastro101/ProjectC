@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menus/SceneSelector.unity
     guid: 9334612ff1bc1a844b77803dce814719
+  - enabled: 1
+    path: Assets/Scenes/Prototype/Perspective.unity
+    guid: 61c2cc7577e8dd141922342f04b702cc
+  - enabled: 1
+    path: Assets/Scenes/Prototype/TopDown.unity
+    guid: 05acab3ce820c124f90e252f79b53bf3
   m_configObjects: {}
