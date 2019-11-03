@@ -13,5 +13,8 @@ public class PlayerData : CharacterBase
     public CommandSequenceBase[] sequences;
     #endregion
 
-    [HideInInspector] public float slowMoRemainTime;
+    [HideInInspector] public float slowMoRemainTime { get { return _slowMoRemainTime; } set { OnSlowMoUsed?.Invoke(value); _slowMoRemainTime = value; } }
+    float _slowMoRemainTime;
+
+    public System.Action<float> OnSlowMoUsed;
 }

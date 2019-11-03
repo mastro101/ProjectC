@@ -68,30 +68,48 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
     void HandleFire()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (BulletPoolManager.instance != null)
         {
-            BulletPoolManager.instance.TakeBullet(playerData.bullet).Shoot(shootPosition.position, aimDirection, this.gameObject);
+            if (Input.GetButtonDown("Fire1"))
+            {
+                BulletPoolManager.instance.TakeBullet(playerData.bullet).Shoot(shootPosition.position, aimDirection, this.gameObject);
+            }
         }
     }
 
+    bool timeSlowed;
     void HandleSlowMo()
     {
         if (Input.GetMouseButtonDown(1))
         {
             Time.timeScale = playerData.slowMoPercent;
-            playerData.slowMoRemainTime = Time.time + playerData.timeForSlowMo * playerData.slowMoPercent;
+            timeSlowed = true;
+            playerData.slowMoRemainTime = playerData.timeForSlowMo * playerData.slowMoPercent;
         }
 
         if (Input.GetMouseButton(1))
         {
-            if (Time.time > playerData.slowMoRemainTime)
-                Time.timeScale = 1;
+            if (timeSlowed == true)
+                playerData.slowMoRemainTime -= Time.deltaTime;
+            
+            if (playerData.slowMoRemainTime < 0 && timeSlowed == true)
+            {
+                ResetSlowMo();
+            }
         }
         
         if (Input.GetMouseButtonUp(1))
         {
-            Time.timeScale = 1;
+            ResetSlowMo();
         }
+    }
+
+    void ResetSlowMo()
+    {
+        Time.timeScale = 1;
+        playerData.slowMoRemainTime = playerData.timeForSlowMo * playerData.slowMoPercent;
+        playerData.slowMoRemainTime = playerData.timeForSlowMo * playerData.slowMoPercent;
+        timeSlowed = false;
     }
 
     #region Sequence
