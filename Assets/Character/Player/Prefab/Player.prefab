@@ -170,15 +170,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73555cb39f1698343b2ea08535aded2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHealth: 0
+  _maxHealth: 0
   speed: 10
-  timeForSequence: 1
+  timeForSequence: 0.2
   slowMoPercent: 0.5
   timeForSlowMo: 5
   bullet: {fileID: 8302164909158169853, guid: ca449563069c1924eab05bf3a2f74deb, type: 3}
   sequences:
   - {fileID: 11400000, guid: c7ed93dc938510244836bd8b9d89281f, type: 2}
   - {fileID: 11400000, guid: 2735bf2292da42948bca8d463a20a056, type: 2}
-  slowMoRemainTime: 0
 --- !u!114 &8412846717692124059
 MonoBehaviour:
   m_ObjectHideFlags: 0
