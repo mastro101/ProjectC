@@ -21,14 +21,20 @@ public abstract class BulletBase : MonoBehaviour
         state = State.Shooted;
         returnTime = Time.time + duration;
     }
-    public virtual void Tick()
+    protected virtual void Tick()
     {
         if (Time.time > returnTime)
             Return();
     }
+
     public virtual void Return()
     {
         BulletPoolManager.instance.ReturnBullet(this);
+    }
+
+    public virtual void OnDamageableCollide(IDamageable damageable)
+    {
+        damageable.TakeDamage(damage);
     }
 
     private void OnEnable()
@@ -49,6 +55,7 @@ public abstract class BulletBase : MonoBehaviour
         Shooted,
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (state == State.Shooted)
@@ -57,7 +64,7 @@ public abstract class BulletBase : MonoBehaviour
             if (damageable != null)
             {
                 if (damageable.gameObject != shootable)
-                    damageable.TakeDamage(damage);
+                    OnDamageableCollide(damageable);
             }
         }
     }

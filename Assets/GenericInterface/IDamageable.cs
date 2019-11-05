@@ -5,6 +5,8 @@ using UnityEngine;
 public interface IDamageable
 {
     GameObject gameObject { get; }
+    Transform transform { get; }
+    Rigidbody myRigidbody { get; }
 
     int currentHealth { get; set; }
     int maxHealth { get; set; }
@@ -13,4 +15,5 @@ public interface IDamageable
     System.Action<int> OnDamage { get; set; }
 
     void TakeDamage(int _damage);
+    void Stun();
 }

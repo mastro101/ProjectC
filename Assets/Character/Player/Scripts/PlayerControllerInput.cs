@@ -29,9 +29,19 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         foreach (var sequence in playerData.sequences)
         {
             sequence.Init(this);
-            sequence.onStartSequence += s => StartSequence();
-            sequence.onExecutedSequence += s => executedSequence = s;
+            sequence.onStartSequence += StartSequence;
+            sequence.onExecutedSequence += OnCorrectSequence;
             sequence.onCorrectInput += OnCorrectInput;
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var sequence in playerData.sequences)
+        {
+            sequence.onStartSequence -= StartSequence;
+            sequence.onExecutedSequence -= OnCorrectSequence;
+            sequence.onCorrectInput -= OnCorrectInput;
         }
     }
 
@@ -160,10 +170,15 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
             ResetSequences();
     }
 
-    void StartSequence()
+    void StartSequence(CommandSequenceBase s)
     {
         if (sequenceStarted == false)
             sequenceStarted = true;
+    }
+
+    void OnCorrectSequence(CommandSequenceBase s)
+    {
+        executedSequence = s;
     }
 
     void OnCorrectInput(InputData input)

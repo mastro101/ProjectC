@@ -142,3 +142,4 @@ MonoBehaviour:
   duration: 1
   damage: 1
   speed: 12
+  knockbackForce: 50

@@ -14,9 +14,21 @@ public abstract class CharacterBase : MonoBehaviour, IDamageable
 
     public Action<int> OnDamage { get; set; }
 
+    public Rigidbody myRigidbody { get; private set; }
+
     public virtual void TakeDamage(int _damage)
     {
         currentHealth -= _damage;
         OnDamage?.Invoke(_damage);
+    }
+
+    public virtual void Stun()
+    {
+        Debug.Log("Stunned");
+    }
+
+    private void Awake()
+    {
+        myRigidbody = GetComponent<Rigidbody>();
     }
 }

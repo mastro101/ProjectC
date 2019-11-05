@@ -34,15 +34,7 @@ public class SequenceLog : MonoBehaviour
             else if (go == xBox) inputImage.sprite = input.XboxSprite;
             else if (go == play) inputImage.sprite = input.PSSprite;
         }
-        _sequenceUI.percent = 1.0f / sequence.inputDatas.Length;
-        _sequenceUI.slider.fillAmount = 0;
-        sequence.onCorrectInput += ctx => FillSlider(_sequenceUI);
-        sequence.onInterruptedSequence += ctx => _sequenceUI.slider.fillAmount = 0;
-    }
-
-    void FillSlider(SequenceUI _sequenceUI)
-    {
-        _sequenceUI.slider.fillAmount += _sequenceUI.percent;
+        _sequenceUI.Init(sequence);
     }
 
     public void OpenKeyUI()
