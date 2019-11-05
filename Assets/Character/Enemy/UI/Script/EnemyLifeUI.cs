@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyLifeUI : MonoBehaviour
 {
-    [SerializeField] GenericEnemy enemy;
+    [SerializeField] CharacterBase enemy;
     [SerializeField] Image slider;
 
     private void Start()

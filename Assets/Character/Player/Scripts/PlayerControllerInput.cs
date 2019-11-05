@@ -207,7 +207,6 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         }
         currentSequences.Clear();
         sequenceStarted = false;
-        Debug.Log("clean");
     } 
     #endregion
 }

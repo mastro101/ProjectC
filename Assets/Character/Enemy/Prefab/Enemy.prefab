@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentHealth: 10
   _maxHealth: 10
+  bullet: {fileID: 8302164909158169853, guid: ca449563069c1924eab05bf3a2f74deb, type: 3}
 --- !u!54 &471873229
 Rigidbody:
   m_ObjectHideFlags: 0

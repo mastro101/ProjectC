@@ -28,7 +28,6 @@ public class CommandSequenceBase : ScriptableObject
     public virtual void Execute()
     {
         onExecutedSequence?.Invoke(this);
-        Debug.Log("fuckingYeah");
     }
 
     int currentInputIndex = 0;
