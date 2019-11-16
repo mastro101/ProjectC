@@ -58,9 +58,13 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         Movement();
     }
 
+    Vector3 stickAxis;
     void Movement()
     {
-        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * playerData.speed * Time.deltaTime, Space.World);
+        stickAxis = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        transform.Translate(stickAxis.normalized * playerData.speed * Time.deltaTime, Space.World);
+        if ((stickAxis.x < -0.1f || stickAxis.x > 0.1f) || (stickAxis.z < -0.1f || stickAxis.z > 0.1f))
+            transform.rotation = Quaternion.LookRotation(stickAxis);
     }
 
     void Aim()
@@ -76,13 +80,24 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         }
     }
 
+    bool shooted;
     void HandleFire()
     {
         if (BulletPoolManager.instance != null)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetAxis("Fire1") > 0 && shooted == false)
             {
-                BulletPoolManager.instance.TakeBullet(playerData.bullet).Shoot(shootPosition.position, aimDirection, this.gameObject);
+                shooted = true;
+                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, transform.forward, this.gameObject);
+            }
+            else if (Input.GetAxis("Fire1") <= 0 && shooted == true)
+            {
+                shooted = false;
+            }
+
+            if (Input.GetButtonDown("Fire2"))
+            {
+                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, aimDirection, this.gameObject);
             }
         }
     }

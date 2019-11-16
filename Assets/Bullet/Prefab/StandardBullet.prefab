@@ -142,4 +142,7 @@ MonoBehaviour:
   duration: 1
   damage: 1
   speed: 12
-  knockbackForce: 0
+  knockbackForce: 5
+  explosionRadius: 1.5
+  explosionKnockbackForce: 5
+  explosionDamage: 2

@@ -69,5 +69,10 @@ public class BulletPoolManager : MonoBehaviour
 
         return bullet;
     }
+
+    public void Shoot(BulletBase _bullet, Vector3 _shootPosition, Vector3 _direction, GameObject _shootable)
+    {
+        instance.TakeBullet(_bullet).Shoot(_shootPosition, _direction, _shootable);
+    }
     #endregion
 }

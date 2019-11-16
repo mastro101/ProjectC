@@ -12,7 +12,7 @@ public abstract class BulletBase : MonoBehaviour
     [SerializeField] int damage;
     //
     float returnTime;
-    GameObject shootable;
+    protected GameObject shootable;
 
     public virtual void Shoot(Vector3 shootPosition, Vector3 direction, GameObject _shootable)
     {
