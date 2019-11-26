@@ -6,6 +6,14 @@ public class GenericEnemy : CharacterBase
 {
     [SerializeField] BulletBase bullet;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        OnDeath += Death;
+    }
+
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -21,5 +29,11 @@ public class GenericEnemy : CharacterBase
             BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.back, this.gameObject);
             BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.left, this.gameObject);
         }
+    }
+
+    void Death(IDamageable _damageable)
+    {
+        OnDeath -= Death;
+        Destroy(gameObject);
     }
 }

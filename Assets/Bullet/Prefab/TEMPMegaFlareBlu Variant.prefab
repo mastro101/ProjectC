@@ -112,6 +112,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8638158093907900729, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: Motion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 260475414521166938, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 260475414521166938, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 260475414521166938, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 260475414521166938, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373651281741548771, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.24
+      objectReference: {fileID: 0}
     - target: {fileID: 2833115021880217422, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
         type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key1.r
@@ -171,16 +201,6 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638158093907900729, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
-        type: 3}
-      propertyPath: Motion
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373651281741548771, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.24
       objectReference: {fileID: 0}
     - target: {fileID: 278967087208430275, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
         type: 3}

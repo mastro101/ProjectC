@@ -105,14 +105,14 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     bool timeSlowed;
     void HandleSlowMo()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Joystick1Button4) || Input.GetKeyDown(KeyCode.Joystick1Button5))
         {
             Time.timeScale = playerData.slowMoPercent;
             timeSlowed = true;
             playerData.slowMoRemainTime = playerData.timeForSlowMo * playerData.slowMoPercent;
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) || Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKey(KeyCode.Joystick1Button5))
         {
             if (timeSlowed == true)
                 playerData.slowMoRemainTime -= Time.deltaTime;
@@ -123,7 +123,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
             }
         }
         
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.Joystick1Button4) || Input.GetKeyUp(KeyCode.Joystick1Button5))
         {
             ResetSlowMo();
         }

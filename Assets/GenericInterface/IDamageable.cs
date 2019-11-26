@@ -13,6 +13,7 @@ public interface IDamageable
     bool isDead { get; set; }
 
     System.Action<int> OnDamage { get; set; }
+    System.Action<IDamageable> OnDeath { get; set; }
 
     void TakeDamage(int _damage);
     void Stun();
