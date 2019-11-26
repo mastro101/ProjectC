@@ -6,6 +6,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 {
     [SerializeField] PlayerData playerData;
     [SerializeField] Transform shootPosition;
+    [SerializeField] SpriteRenderer spriteCharacter;
 
     Rigidbody rb;
 
@@ -59,12 +60,24 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     }
 
     Vector3 stickAxis;
+    Vector3 lookDirection;
     void Movement()
     {
         stickAxis = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(stickAxis.normalized * playerData.speed * Time.deltaTime, Space.World);
         if ((stickAxis.x < -0.1f || stickAxis.x > 0.1f) || (stickAxis.z < -0.1f || stickAxis.z > 0.1f))
-            transform.rotation = Quaternion.LookRotation(stickAxis);
+            lookDirection = Quaternion.LookRotation(stickAxis) * Vector3.forward;
+        if (spriteCharacter)
+        {
+            if (stickAxis.x < 0 && spriteCharacter.flipX == true)
+            {
+                spriteCharacter.flipX = false;
+            }
+            else if (stickAxis.x > 0 && spriteCharacter.flipX == false)
+            {
+                spriteCharacter.flipX = true;
+            }
+        }
     }
 
     void Aim()
@@ -88,7 +101,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
             if (Input.GetAxis("Fire1") > 0 && shooted == false)
             {
                 shooted = true;
-                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, transform.forward, this.gameObject);
+                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, lookDirection, this.gameObject);
             }
             else if (Input.GetAxis("Fire1") <= 0 && shooted == true)
             {

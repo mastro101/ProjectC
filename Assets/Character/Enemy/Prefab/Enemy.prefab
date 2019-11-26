@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1818360609 &1321147137369472017
-RotationConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449435540541822364}
-  m_Enabled: 1
-  m_Weight: 1
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_IsContraintActive: 1
-  m_IsLocked: 1
-  m_Sources: []
 --- !u!1 &1144568659956771301
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,12 +182,12 @@ PrefabInstance:
     - target: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.042
       objectReference: {fileID: 0}
     - target: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}
@@ -219,7 +202,7 @@ PrefabInstance:
     - target: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}
@@ -229,7 +212,7 @@ PrefabInstance:
     - target: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}
@@ -298,12 +281,6 @@ PrefabInstance:
       objectReference: {fileID: 9188792256571101740}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 299339bc3dde23642a6673d77fd5a2c5, type: 3}
---- !u!1 &449435540541822364 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6633930267140719889, guid: 299339bc3dde23642a6673d77fd5a2c5,
-    type: 3}
-  m_PrefabInstance: {fileID: 6497783111337431181}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4332538117282351904 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
