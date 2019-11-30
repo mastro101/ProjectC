@@ -1738,6 +1738,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -28.749878
       objectReference: {fileID: 0}
+    - target: {fileID: 5280448740397950683, guid: 1126c1704778fb342a7b63660afe6b44,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8412846717692124059, guid: 1126c1704778fb342a7b63660afe6b44,
+        type: 3}
+      propertyPath: spriteCharacter
+      value: 
+      objectReference: {fileID: 949578380}
     m_RemovedComponents:
     - {fileID: 1016911738033540541, guid: 1126c1704778fb342a7b63660afe6b44, type: 3}
     - {fileID: 7415731552292786529, guid: 1126c1704778fb342a7b63660afe6b44, type: 3}

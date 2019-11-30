@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototype/2D.unity
     guid: 6572a3b7363b82b4caa32b01a4a90f92
+  - enabled: 1
+    path: Assets/Scenes/Blockout.unity
+    guid: d3449f9af1e33d444bea5e0455b13585
   m_configObjects: {}
