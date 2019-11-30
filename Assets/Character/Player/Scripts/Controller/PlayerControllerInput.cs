@@ -21,17 +21,8 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     int consecutiveButtonPressed = -1;
     bool buttonJustPressed = false;
     float sequenceRemainTime;
-
-    IEnumerator buttonCorutine;
-    IEnumerator slowMoCourutine;
-    IEnumerator refillSlowMoCorutine;
     private void Start()
     {
-        buttonCorutine = HoldButtonCorutine();
-        slowMoCourutine = SlowMo();
-        refillSlowMoCorutine = RefillSlowMo();
-        playerData.slowMoRemainTime = playerData.timeForSlowMo * playerData.slowMoPercent;
-
         rb = GetComponent<Rigidbody>();
 
         currentSequences = new List<CommandSequenceBase>();
@@ -59,7 +50,6 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         HandleSequence();
         Aim();
         HandleFire();
-        HandleSlowMo();
     }
 
     private void FixedUpdate()
@@ -121,105 +111,6 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
                 BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, aimDirection, this.gameObject);
             }
         }
-    }
-
-    bool timeSlowed;
-    float timerToPressAndRelease = .2f;
-    bool fakedHold;
-    void HandleSlowMo()
-    {
-        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Joystick1Button4) || Input.GetKeyDown(KeyCode.Joystick1Button5))
-        {
-            if (fakedHold == false)
-            {
-                fakedHold = true;
-                Time.timeScale = playerData.slowMoPercent;
-                timeSlowed = true;
-                StartCoroutine(buttonCorutine);
-                StartCoroutine(slowMoCourutine);
-                StopCoroutine(refillSlowMoCorutine);
-                refillSlowMoCorutine = RefillSlowMo();
-            }
-            else
-            {
-                fakedHold = false;
-                if (timeSlowed)
-                {
-                    StopCoroutine(slowMoCourutine);
-                    slowMoCourutine = SlowMo();
-                    StartCoroutine(refillSlowMoCorutine);
-                }
-            }
-        }
-
-        //if (Input.GetMouseButton(1) || Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKey(KeyCode.Joystick1Button5))
-        //{
-        //    if (timeSlowed == true)
-        //        playerData.slowMoRemainTime -= Time.deltaTime;
-        //    
-        //    if (playerData.slowMoRemainTime < 0 && timeSlowed == true)
-        //    {
-        //        ResetSlowMo();
-        //    }
-        //}
-        
-        if (Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.Joystick1Button4) || Input.GetKeyUp(KeyCode.Joystick1Button5))
-        {
-            if (fakedHold == true)
-            {
-                StopCoroutine(buttonCorutine);
-            }
-            else
-            {
-                if (timeSlowed)
-                {
-                    StopCoroutine(slowMoCourutine);
-                    slowMoCourutine = SlowMo();
-                    StartCoroutine(refillSlowMoCorutine);
-                }
-            }
-            buttonCorutine = HoldButtonCorutine();
-        }
-    }
-
-    IEnumerator SlowMo()
-    {
-        while (playerData.slowMoRemainTime > 0)
-        {
-            if (timeSlowed == true)
-                playerData.slowMoRemainTime -= Time.deltaTime;
-            yield return null;
-        }
-        StartCoroutine(refillSlowMoCorutine);
-        slowMoCourutine = SlowMo();
-    }
-
-    IEnumerator HoldButtonCorutine()
-    {
-        yield return new WaitForSeconds(timerToPressAndRelease);
-        fakedHold = false;
-        buttonCorutine = HoldButtonCorutine();
-    }
-
-    IEnumerator RefillSlowMo()
-    {
-        Time.timeScale = 1;
-        timeSlowed = false;
-        while (playerData.slowMoRemainTime < playerData.timeForSlowMo * playerData.slowMoPercent)
-        {
-            if (timeSlowed == false)
-                playerData.slowMoRemainTime += Time.deltaTime;
-            yield return null;
-        }
-        refillSlowMoCorutine = RefillSlowMo();
-    }
-
-    void ResetSlowMo()
-    {
-        Time.timeScale = 1;
-        playerData.slowMoRemainTime = playerData.timeForSlowMo * playerData.slowMoPercent;
-        playerData.slowMoRemainTime = playerData.timeForSlowMo * playerData.slowMoPercent;
-        timeSlowed = false;
     }
 
     #region Sequence

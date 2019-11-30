@@ -10,7 +10,7 @@ public class SlowMotionUI : MonoBehaviour
 
     private void Awake()
     {
-        player.OnSlowMoUsed += UpdateSlowMotionTimer;
+        player.OnSlowMoUse += UpdateSlowMotionTimer;
     }
 
     public void UpdateSlowMotionTimer(float _remainTime)
