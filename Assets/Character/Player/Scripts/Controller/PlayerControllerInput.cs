@@ -21,6 +21,8 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     int consecutiveButtonPressed = -1;
     bool buttonJustPressed = false;
     float sequenceRemainTime;
+
+    #region Mono
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,7 +32,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         {
             sequence.Init(this);
             sequence.onStartSequence += StartSequence;
-            sequence.onExecutedSequence += OnCorrectSequence;
+            sequence.onCompletedSequence += OnCorrectSequence;
             sequence.onCorrectInput += OnCorrectInput;
         }
     }
@@ -40,7 +42,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         foreach (var sequence in playerData.sequences)
         {
             sequence.onStartSequence -= StartSequence;
-            sequence.onExecutedSequence -= OnCorrectSequence;
+            sequence.onCompletedSequence -= OnCorrectSequence;
             sequence.onCorrectInput -= OnCorrectInput;
         }
     }
@@ -56,6 +58,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     {
         Movement();
     }
+    #endregion
 
     Vector3 stickAxis;
     Vector3 lookDirection;

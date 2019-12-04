@@ -10,7 +10,7 @@ public class CommandSequenceBase : ScriptableObject
     public InputData currentInput { get; private set; }
     public System.Action<CommandSequenceBase> onStartSequence;
     public System.Action<InputData> onCorrectInput;
-    public System.Action<CommandSequenceBase> onExecutedSequence;
+    public System.Action<CommandSequenceBase> onCompletedSequence;
     public System.Action<CommandSequenceBase> onInterruptedSequence;
 
     public CommandSequenceBase(ICommandController controller, params InputData[] inputDatas)
@@ -25,9 +25,9 @@ public class CommandSequenceBase : ScriptableObject
         currentInputIndex = 0;
     }
 
-    public virtual void Execute()
+    public virtual void Complete()
     {
-        onExecutedSequence?.Invoke(this);
+        onCompletedSequence?.Invoke(this);
     }
 
     int currentInputIndex = 0;
@@ -44,7 +44,7 @@ public class CommandSequenceBase : ScriptableObject
                 onCorrectInput?.Invoke(currentInput);
                 if (currentInputIndex == inputDatas.Length)
                 {
-                    Execute();
+                    Complete();
                     ResetSequence();
                 }
                 return;
@@ -56,7 +56,7 @@ public class CommandSequenceBase : ScriptableObject
 
             if (currentInputIndex == inputDatas.Length)
             {
-                Execute();
+                Complete();
                 ResetSequence();
             }
         }
