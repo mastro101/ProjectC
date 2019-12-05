@@ -11,7 +11,10 @@ public class CommandSequenceBase : ScriptableObject
     public System.Action<CommandSequenceBase> onStartSequence;
     public System.Action<InputData> onCorrectInput;
     public System.Action<CommandSequenceBase> onCompletedSequence;
-    public System.Action<CommandSequenceBase> onInterruptedSequence;
+    public System.Action<CommandSequenceBase> onResetSequence;
+
+    int currentInputIndex = 0;
+    bool complated;
 
     public CommandSequenceBase(ICommandController controller, params InputData[] inputDatas)
     {
@@ -23,31 +26,27 @@ public class CommandSequenceBase : ScriptableObject
     {
         this.controller = controller;
         currentInputIndex = 0;
+        complated = false;
     }
 
     public virtual void Complete()
     {
+        complated = true;
         onCompletedSequence?.Invoke(this);
     }
 
-    int currentInputIndex = 0;
+    public virtual void Execute()
+    {
+        ResetSequence();
+    }
+
     public void HandleInputSequence()
     {
-        if (inputDatas[currentInputIndex].CheckInputPressed())
+        if (inputDatas[currentInputIndex].CheckInputPressed() && complated == false)
         {
             if (currentInputIndex == 0)
             {
-                controller.currentSequences.Add(this);
-                currentInput = inputDatas[currentInputIndex];
-                currentInputIndex++;
                 onStartSequence?.Invoke(this);
-                onCorrectInput?.Invoke(currentInput);
-                if (currentInputIndex == inputDatas.Length)
-                {
-                    Complete();
-                    ResetSequence();
-                }
-                return;
             }
 
             currentInput = inputDatas[currentInputIndex];
@@ -57,7 +56,6 @@ public class CommandSequenceBase : ScriptableObject
             if (currentInputIndex == inputDatas.Length)
             {
                 Complete();
-                ResetSequence();
             }
         }
     }
@@ -66,7 +64,8 @@ public class CommandSequenceBase : ScriptableObject
     {
         currentInputIndex = 0;
         currentInput = null;
-        onInterruptedSequence?.Invoke(this);
+        complated = false;
+        onResetSequence?.Invoke(this);
     }
 
     public InputData GetInput(int index)

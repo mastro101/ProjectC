@@ -12,6 +12,8 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
     public Vector3 aimDirection { get; private set; }
 
+    public System.Action OnDestroy { get; set; }
+
     public List<CommandSequenceBase> currentSequences { get; set; }
     CommandSequenceBase executedSequence;
 
@@ -39,8 +41,10 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
     private void OnDisable()
     {
+        OnDestroy?.Invoke();
         foreach (var sequence in playerData.sequences)
         {
+            sequence.ResetSequence();
             sequence.onStartSequence -= StartSequence;
             sequence.onCompletedSequence -= OnCorrectSequence;
             sequence.onCorrectInput -= OnCorrectInput;
@@ -60,6 +64,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     }
     #endregion
 
+    #region OtherInputHandler
     Vector3 stickAxis;
     Vector3 lookDirection;
     void Movement()
@@ -114,7 +119,8 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
                 BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, aimDirection, this.gameObject);
             }
         }
-    }
+    } 
+    #endregion
 
     #region Sequence
     void HandleSequence()
@@ -135,13 +141,6 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
                 sequence.HandleInputSequence();
             }
 
-            if (executedSequence != null)
-                if (currentSequences.Contains(executedSequence))
-                {
-                    currentSequences.Remove(executedSequence);
-                    executedSequence = null;
-                }
-
             if (sequenceToRemove.Count > 0)
             {
                 int l = sequenceToRemove.Count;
@@ -157,17 +156,25 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
             }
 
             if (currentSequences.Count == 0)
-                ResetSequences();
+            {
+                //ResetSequences();
+            }
         }
 
         if (sequenceStarted == true && (Time.time > sequenceRemainTime))
+        {
+            ExecuteSequence();
             ResetSequences();
+        }
     }
 
     void StartSequence(CommandSequenceBase s)
     {
         if (sequenceStarted == false)
+        {
             sequenceStarted = true;
+        }
+        currentSequences.Add(s);
     }
 
     void OnCorrectSequence(CommandSequenceBase s)
@@ -201,6 +208,19 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         }
         currentSequences.Clear();
         sequenceStarted = false;
-    } 
+    }
+
+    void ExecuteSequence()
+    {
+        if (executedSequence != null)
+        {
+            if (currentSequences.Contains(executedSequence))
+            {
+                currentSequences.Remove(executedSequence);
+                executedSequence.Execute();
+                executedSequence = null;
+            }
+        }
+    }
     #endregion
 }

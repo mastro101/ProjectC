@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4648aa64f5d5c194391bda96e0d08f5c, type: 3}
-  m_Name: FlareBlu 2
+  m_Name: EsempioBello_lv3
   m_EditorClassIdentifier: 
   inputDatas:
   - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}
-  - {fileID: 11400000, guid: d25ccdd777154654c8dfa5969a15bc0d, type: 2}
-  - {fileID: 11400000, guid: d25ccdd777154654c8dfa5969a15bc0d, type: 2}
-  - {fileID: 11400000, guid: d25ccdd777154654c8dfa5969a15bc0d, type: 2}
-  flarePrefab: {fileID: 2212507392432273100, guid: 8b452204ab0f0ec43a98817edb130840,
+  - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}
+  flarePrefab: {fileID: 3466907262301439822, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
     type: 3}

@@ -12,9 +12,9 @@ public class CommandMegaFlare : CommandSequenceBase
 
     }
 
-    public override void Complete()
+    public override void Execute()
     {
-        base.Complete();
+        base.Execute();
         BulletPoolManager.instance.TakeBullet(flarePrefab).Shoot(controller.transform.position, controller.aimDirection, controller.gameObject);
     }
 }

@@ -17,7 +17,7 @@ public class SequenceUI : MonoBehaviour
         sequence = _sequence;
 
         sequence.onCorrectInput += FillSlider;
-        sequence.onInterruptedSequence += EmptySlider;
+        sequence.onResetSequence += EmptySlider;
     }
 
     public void FillSlider(InputData i)
@@ -33,6 +33,6 @@ public class SequenceUI : MonoBehaviour
     private void OnDestroy()
     {
         sequence.onCorrectInput -= FillSlider;
-        sequence.onInterruptedSequence -= EmptySlider;
+        sequence.onResetSequence -= EmptySlider;
     }
 }
