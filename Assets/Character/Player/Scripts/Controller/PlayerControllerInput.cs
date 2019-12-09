@@ -14,8 +14,8 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
     public System.Action OnDestroy { get; set; }
 
-    public List<CommandSequenceBase> currentSequences { get; set; }
-    CommandSequenceBase executedSequence;
+    public List<SetSequencesData> currentSequencesSet { get; set; }
+    SetSequencesData executedSequence;
 
     List<CommandSequenceBase> sequenceToRemove = new List<CommandSequenceBase>();
 
@@ -29,13 +29,17 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     {
         rb = GetComponent<Rigidbody>();
 
-        currentSequences = new List<CommandSequenceBase>();
+        currentSequencesSet = new List<SetSequencesData>();
         foreach (var sequence in playerData.sequences)
         {
             sequence.Init(this);
-            sequence.onStartSequence += StartSequence;
-            sequence.onCompletedSequence += OnCorrectSequence;
-            sequence.onCorrectInput += OnCorrectInput;
+            sequence.onStartSequence    += StartSequence;
+            //sequence.onCompletedSet   += OnCorrectSequence;
+            sequence.onCompletedSection += OnCorrectSequence;
+            foreach (var section in sequence.comboSections)
+            {
+                section.onCorrectInput  += OnCorrectInput;
+            }
         }
     }
 
@@ -45,9 +49,13 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         foreach (var sequence in playerData.sequences)
         {
             sequence.ResetSequence();
-            sequence.onStartSequence -= StartSequence;
-            sequence.onCompletedSequence -= OnCorrectSequence;
-            sequence.onCorrectInput -= OnCorrectInput;
+            sequence.onStartSequence    -= StartSequence;
+            //sequence.onCompletedSet   -= OnCorrectSequence;
+            sequence.onCompletedSection -= OnCorrectSequence;
+            foreach (var section in sequence.comboSections)
+            {
+                section.onCorrectInput  -= OnCorrectInput;
+            }
         }
     }
 
@@ -131,53 +139,53 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         {
             foreach (var sequence in playerData.sequences)
             {
-                sequence.HandleInputSequence();
+                sequence.HandleSetSequences();
             }
         }
         else
         {
-            foreach (var sequence in currentSequences)
+            foreach (var sequence in currentSequencesSet)
             {
-                sequence.HandleInputSequence();
+                sequence.HandleSetSequences();
             }
 
-            if (sequenceToRemove.Count > 0)
-            {
-                int l = sequenceToRemove.Count;
-                for (int i = 0; i < l; i++)
-                {
-                    if (currentSequences.Contains(sequenceToRemove[i]))
-                    {
-                        sequenceToRemove[i].ResetSequence();
-                        currentSequences.Remove(sequenceToRemove[i]);
-                    }
-                }
-                sequenceToRemove.Clear();
-            }
+            //if (sequenceToRemove.Count > 0)
+            //{
+            //    int l = sequenceToRemove.Count;
+            //    for (int i = 0; i < l; i++)
+            //    {
+            //        if (currentSequencesSet.Contains(sequenceToRemove[i]))
+            //        {
+            //            sequenceToRemove[i].ResetSequence();
+            //            currentSequencesSet.Remove(sequenceToRemove[i]);
+            //        }
+            //    }
+            //    sequenceToRemove.Clear();
+            //}
 
-            if (currentSequences.Count == 0)
+            if (currentSequencesSet.Count == 0)
             {
-                //ResetSequences();
+                ResetSequences();
             }
         }
 
         if (sequenceStarted == true && (Time.time > sequenceRemainTime))
         {
             ExecuteSequence();
-            ResetSequences();
         }
     }
 
-    void StartSequence(CommandSequenceBase s)
+    void StartSequence(SetSequencesData s)
     {
+        Debug.Log("Inizio");
         if (sequenceStarted == false)
         {
             sequenceStarted = true;
         }
-        currentSequences.Add(s);
+        currentSequencesSet.Add(s);
     }
 
-    void OnCorrectSequence(CommandSequenceBase s)
+    void OnCorrectSequence(SetSequencesData s)
     {
         executedSequence = s;
     }
@@ -190,37 +198,40 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
             buttonJustPressed = true;
         }
         sequenceRemainTime = Time.time + playerData.timeForSequence;
-        foreach (var sequence in currentSequences)
-        {
-            if (sequence.GetInput(consecutiveButtonPressed) != sequence.currentInput)
-            {
-                sequenceToRemove.Add(sequence);
-            }
-        }
+        //foreach (var sequence in currentSequencesSet)
+        //{
+        //    if (sequence.GetInput(consecutiveButtonPressed) != sequence.currentInput)
+        //    {
+        //        sequenceToRemove.Add(sequence);
+        //    }
+        //}
     }
 
     void ResetSequences()
     {
         consecutiveButtonPressed = -1;
-        foreach (var sequence in currentSequences)
+        foreach (var sequence in currentSequencesSet)
         {
             sequence.ResetSequence();
         }
-        currentSequences.Clear();
+        currentSequencesSet.Clear();
         sequenceStarted = false;
     }
 
     void ExecuteSequence()
     {
+        Debug.Log("Ho ultimato la sequenza di lancio");
         if (executedSequence != null)
         {
-            if (currentSequences.Contains(executedSequence))
+            Debug.Log("Procedo");
+            if (currentSequencesSet.Contains(executedSequence))
             {
-                currentSequences.Remove(executedSequence);
+                //currentSequencesSet.Remove(executedSequence);
                 executedSequence.Execute();
                 executedSequence = null;
             }
         }
+        ResetSequences();
     }
     #endregion
 }

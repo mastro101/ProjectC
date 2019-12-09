@@ -37,6 +37,7 @@ public class CommandSequenceBase : ScriptableObject
 
     public virtual void Execute()
     {
+        Debug.Log("COMBO");
         ResetSequence();
     }
 

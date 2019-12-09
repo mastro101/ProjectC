@@ -18,9 +18,9 @@ public class SequenceLog : MonoBehaviour
     {
         foreach (var sequence in player.sequences)
         {
-            InstantiateSequenceView(key, sequence);
-            InstantiateSequenceView(xBox, sequence);
-            InstantiateSequenceView(play, sequence);
+            //InstantiateSequenceView(key, sequence);
+            //InstantiateSequenceView(xBox, sequence);
+            //InstantiateSequenceView(play, sequence);
         }
     }
 

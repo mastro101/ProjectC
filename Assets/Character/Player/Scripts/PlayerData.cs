@@ -10,7 +10,7 @@ public class PlayerData : CharacterBase
     [SerializeField][Range(0f, 1f)] public float slowMoPercent;
     public float timeForSlowMo;
     public BulletBase bullet;
-    public CommandSequenceBase[] sequences;
+    public SetSequencesData[] sequences;
     #endregion
 
     float _slowMoRemainTime;

@@ -197,8 +197,7 @@ MonoBehaviour:
   timeForSlowMo: 5
   bullet: {fileID: 8302164909158169853, guid: ca449563069c1924eab05bf3a2f74deb, type: 3}
   sequences:
-  - {fileID: 11400000, guid: c7ed93dc938510244836bd8b9d89281f, type: 2}
-  - {fileID: 11400000, guid: 2735bf2292da42948bca8d463a20a056, type: 2}
+  - {fileID: 11400000, guid: bdccf075ea2a0e646a2b5a356cc43558, type: 2}
 --- !u!114 &8412846717692124059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a296960e54d4f478ae41fc15ebe90f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnableOnCoolDown: 0
 --- !u!1001 &1841571309176105331
 PrefabInstance:
   m_ObjectHideFlags: 0
