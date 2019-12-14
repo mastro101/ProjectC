@@ -18,23 +18,27 @@ public class SequenceLog : MonoBehaviour
     {
         foreach (var sequence in player.sequences)
         {
-            //InstantiateSequenceView(key, sequence);
-            //InstantiateSequenceView(xBox, sequence);
-            //InstantiateSequenceView(play, sequence);
+            InstantiateSequenceView(key, sequence);
+            InstantiateSequenceView(xBox, sequence);
+            InstantiateSequenceView(play, sequence);
         }
     }
 
-    void InstantiateSequenceView(GameObject go, CommandSequenceBase sequence)
+    void InstantiateSequenceView(GameObject go, SetSequencesData sequence)
     {
-        SequenceUI _sequenceUI = Instantiate(sequenceUI, go.transform);
-        foreach (var input in sequence.inputDatas)
+        for (int i = 0; i < sequence.level; i++)
         {
-            Image inputImage = Instantiate(IconPrefab, _sequenceUI.inputList);
-            if (go == key) inputImage.sprite = input.keySprite;
-            else if (go == xBox) inputImage.sprite = input.XboxSprite;
-            else if (go == play) inputImage.sprite = input.PSSprite;
+            SequenceUI _sequenceUI = Instantiate(sequenceUI, go.transform);
+            foreach (var input in sequence.comboSections[i].inputDatas)
+            {
+                Image inputImage = Instantiate(IconPrefab, _sequenceUI.inputList);
+                if (go == key) inputImage.sprite = input.keySprite;
+                else if (go == xBox) inputImage.sprite = input.XboxSprite;
+                else if (go == play) inputImage.sprite = input.PSSprite;
+            }
+            _sequenceUI.Init(sequence.comboSections[i]);
         }
-        _sequenceUI.Init(sequence);
+        SequenceUI _sequenceUIEmpty = Instantiate(sequenceUI, go.transform);
     }
 
     public void OpenKeyUI()

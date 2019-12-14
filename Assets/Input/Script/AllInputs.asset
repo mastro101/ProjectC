@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4648aa64f5d5c194391bda96e0d08f5c, type: 3}
-  m_Name: EsempioBello_lv2
+  m_Script: {fileID: 11500000, guid: 79a92a4a0d9a0924da796d27fc7a7c49, type: 3}
+  m_Name: AllInputs
   m_EditorClassIdentifier: 
-  inputDatas:
+  inputs:
   - {fileID: 11400000, guid: 6c32d9fb331976243887b7399cb2d70f, type: 2}
-  - {fileID: 11400000, guid: 6c32d9fb331976243887b7399cb2d70f, type: 2}
-  flarePrefab: {fileID: 2212507392432273100, guid: 8b452204ab0f0ec43a98817edb130840,
-    type: 3}
+  - {fileID: 11400000, guid: d25ccdd777154654c8dfa5969a15bc0d, type: 2}
+  - {fileID: 11400000, guid: 7955f2b022df0fd4195defee1e0f6450, type: 2}
+  - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}

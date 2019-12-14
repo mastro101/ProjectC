@@ -28,6 +28,7 @@ public class SetSequencesData : ScriptableObject
         comboSections[0].onStartSequence += StartSection;
         foreach (CommandSequenceBase sequences in comboSections)
         {
+            sequences.Init(controller);
             sequences.onCompletedSequence += NextSection;
         }
         this.controller.OnDestroy += UnsubscribeEvent;
@@ -84,6 +85,6 @@ public class SetSequencesData : ScriptableObject
     {
         Debug.Log("Vai combo");
         currentSection.Execute();
-        ResetSequence();
+        //ResetSequence();
     }
 }

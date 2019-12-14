@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControllerInput : MonoBehaviour , ICommandController
 {
+    [SerializeField] InputContainer inputsData;
     [SerializeField] PlayerData playerData;
     [SerializeField] Transform shootPosition;
     [SerializeField] SpriteRenderer spriteCharacter;
@@ -13,11 +14,12 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     public Vector3 aimDirection { get; private set; }
 
     public System.Action OnDestroy { get; set; }
+    public System.Action<InputData> OnInputPressed { get; set; }
+    public System.Action OnInputReset { get; set; }
 
-    public List<SetSequencesData> currentSequencesSet { get; set; }
+    public List<SetSequencesData> currentSequencesSet { get; private set; }
     SetSequencesData executedSequence;
-
-    List<CommandSequenceBase> sequenceToRemove = new List<CommandSequenceBase>();
+    public List<InputData> currentInputSequence { get; private set; }
 
     bool sequenceStarted = false;
     int consecutiveButtonPressed = -1;
@@ -30,6 +32,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         rb = GetComponent<Rigidbody>();
 
         currentSequencesSet = new List<SetSequencesData>();
+        currentInputSequence = new List<InputData>();
         foreach (var sequence in playerData.sequences)
         {
             sequence.Init(this);
@@ -137,6 +140,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
         if (sequenceStarted == false)
         {
+            HandleInput();
             foreach (var sequence in playerData.sequences)
             {
                 sequence.HandleSetSequences();
@@ -144,40 +148,42 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         }
         else
         {
+            HandleInput();
             foreach (var sequence in currentSequencesSet)
             {
                 sequence.HandleSetSequences();
-            }
-
-            //if (sequenceToRemove.Count > 0)
-            //{
-            //    int l = sequenceToRemove.Count;
-            //    for (int i = 0; i < l; i++)
-            //    {
-            //        if (currentSequencesSet.Contains(sequenceToRemove[i]))
-            //        {
-            //            sequenceToRemove[i].ResetSequence();
-            //            currentSequencesSet.Remove(sequenceToRemove[i]);
-            //        }
-            //    }
-            //    sequenceToRemove.Clear();
-            //}
-
-            if (currentSequencesSet.Count == 0)
-            {
-                ResetSequences();
             }
         }
 
         if (sequenceStarted == true && (Time.time > sequenceRemainTime))
         {
-            ExecuteSequence();
+             ExecuteSequence();
+        }
+    }
+
+    void HandleInput()
+    {
+        if (Input.anyKeyDown)
+        {
+            foreach (var input in inputsData.inputs)
+            {
+                if (input.CheckInputPressed())
+                {
+                    if (sequenceStarted == false)
+                    {
+                        sequenceStarted = true;
+                    }
+                    currentInputSequence.Add(input);
+                    OnInputPressed?.Invoke(input);
+                    buttonJustPressed = true;
+                    sequenceRemainTime = Time.time + playerData.timeForSequence;
+                }
+            }
         }
     }
 
     void StartSequence(SetSequencesData s)
     {
-        Debug.Log("Inizio");
         if (sequenceStarted == false)
         {
             sequenceStarted = true;
@@ -194,17 +200,12 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     {
         if (!buttonJustPressed)
         {
+            currentInputSequence.Add(input);
+            OnInputPressed?.Invoke(input);
             consecutiveButtonPressed++;
             buttonJustPressed = true;
         }
         sequenceRemainTime = Time.time + playerData.timeForSequence;
-        //foreach (var sequence in currentSequencesSet)
-        //{
-        //    if (sequence.GetInput(consecutiveButtonPressed) != sequence.currentInput)
-        //    {
-        //        sequenceToRemove.Add(sequence);
-        //    }
-        //}
     }
 
     void ResetSequences()
@@ -215,18 +216,17 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
             sequence.ResetSequence();
         }
         currentSequencesSet.Clear();
+        currentInputSequence.Clear();
+        OnInputReset?.Invoke();
         sequenceStarted = false;
     }
 
     void ExecuteSequence()
     {
-        Debug.Log("Ho ultimato la sequenza di lancio");
         if (executedSequence != null)
         {
-            Debug.Log("Procedo");
             if (currentSequencesSet.Contains(executedSequence))
             {
-                //currentSequencesSet.Remove(executedSequence);
                 executedSequence.Execute();
                 executedSequence = null;
             }

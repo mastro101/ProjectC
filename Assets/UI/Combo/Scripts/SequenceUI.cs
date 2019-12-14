@@ -10,6 +10,7 @@ public class SequenceUI : MonoBehaviour
     public float percent;
     public CommandSequenceBase sequence;
 
+    bool inited;
     public void Init(CommandSequenceBase _sequence)
     {
         percent = 1.0f / _sequence.inputDatas.Length;
@@ -18,6 +19,7 @@ public class SequenceUI : MonoBehaviour
 
         sequence.onCorrectInput += FillSlider;
         sequence.onResetSequence += EmptySlider;
+        inited = true;
     }
 
     public void FillSlider(InputData i)
@@ -32,7 +34,10 @@ public class SequenceUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        sequence.onCorrectInput -= FillSlider;
-        sequence.onResetSequence -= EmptySlider;
+        if (inited == true)
+        {
+            sequence.onCorrectInput -= FillSlider;
+            sequence.onResetSequence -= EmptySlider;
+        }
     }
 }

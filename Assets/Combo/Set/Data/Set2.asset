@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5ba962d5db305d44b5149e8d4c88830, type: 3}
-  m_Name: SetBello
+  m_Name: Set2
   m_EditorClassIdentifier: 
   comboSections:
-  - {fileID: 11400000, guid: cffd5f0283f4a034bb247d4707dd2912, type: 2}
   - {fileID: 11400000, guid: 338401b8f0be1e04cb6107b36ca8d572, type: 2}
-  - {fileID: 11400000, guid: f1e62ea7f9bcaf44a882be021b2e6445, type: 2}
-  level: 2
+  - {fileID: 11400000, guid: cffd5f0283f4a034bb247d4707dd2912, type: 2}
+  level: 1
   exp: 0
   cooldown: 0
