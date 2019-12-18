@@ -16,4 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d25ccdd777154654c8dfa5969a15bc0d, type: 2}
   - {fileID: 11400000, guid: 6c32d9fb331976243887b7399cb2d70f, type: 2}
   - {fileID: 11400000, guid: d25ccdd777154654c8dfa5969a15bc0d, type: 2}
-  flarePrefab: {fileID: 0}
+  flarePrefab: {fileID: 3466907262301439822, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+    type: 3}

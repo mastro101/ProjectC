@@ -22,13 +22,13 @@ public class GenericEnemy : CharacterBase
 
     void Attack()
     {
-        if (bullet != null)
-        {
-            BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.right, this.gameObject);
-            BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.forward, this.gameObject);
-            BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.back, this.gameObject);
-            BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.left, this.gameObject);
-        }
+        //if (bullet != null)
+        //{
+        //    BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.right, this.gameObject);
+        //    BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.forward, this.gameObject);
+        //    BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.back, this.gameObject);
+        //    BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.left, this.gameObject);
+        //}
     }
 
     void Death(IDamageable _damageable)
