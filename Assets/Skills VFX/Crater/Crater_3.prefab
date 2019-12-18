@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5592742864684555745, guid: c00b08a11f89e6948a285e01d1b73135,
         type: 3}
       propertyPath: m_Name
-      value: Crater Variant
+      value: Crater_3
       objectReference: {fileID: 0}
     - target: {fileID: 1221022394205082266, guid: c00b08a11f89e6948a285e01d1b73135,
         type: 3}
@@ -80,7 +80,12 @@ PrefabInstance:
     - target: {fileID: 6304326824705683210, guid: c00b08a11f89e6948a285e01d1b73135,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.97981787
+      value: 0.019788265
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304326824705683210, guid: c00b08a11f89e6948a285e01d1b73135,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.81960785
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c00b08a11f89e6948a285e01d1b73135, type: 3}
