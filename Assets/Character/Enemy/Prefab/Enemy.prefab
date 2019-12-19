@@ -141,6 +141,8 @@ MonoBehaviour:
   _currentHealth: 10
   _maxHealth: 10
   bullet: {fileID: 8302164909158169853, guid: ca449563069c1924eab05bf3a2f74deb, type: 3}
+  viewRadious: 3.5
+  fireRate: 1
 --- !u!54 &471873229
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -164,11 +166,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2651407455878728740}
     m_Modifications:
-    - target: {fileID: 6633930267140719889, guid: 299339bc3dde23642a6673d77fd5a2c5,
-        type: 3}
-      propertyPath: m_Name
-      value: HealthBar
-      objectReference: {fileID: 0}
     - target: {fileID: 7353400891597691821, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -273,6 +270,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633930267140719889, guid: 299339bc3dde23642a6673d77fd5a2c5,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthBar
       objectReference: {fileID: 0}
     - target: {fileID: 7640691313714996926, guid: 299339bc3dde23642a6673d77fd5a2c5,
         type: 3}

@@ -410,14 +410,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentHealth: 10
   _maxHealth: 10
-  speed: 10
+  speed: 5
   timeForSequence: 0.2
   slowMoPercent: 0.5
   timeForSlowMo: 5
   bullet: {fileID: 8302164909158169853, guid: ca449563069c1924eab05bf3a2f74deb, type: 3}
   sequences:
   - {fileID: 11400000, guid: bdccf075ea2a0e646a2b5a356cc43558, type: 2}
-  - {fileID: 11400000, guid: ece52ae27c4756042b6756ed417b1f02, type: 2}
+  - {fileID: 11400000, guid: fa1ce74351bb7a54fad8960ca5074957, type: 2}
 --- !u!114 &8412846717692124059
 MonoBehaviour:
   m_ObjectHideFlags: 0

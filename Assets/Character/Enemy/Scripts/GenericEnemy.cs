@@ -5,6 +5,13 @@ using UnityEngine;
 public class GenericEnemy : CharacterBase
 {
     [SerializeField] BulletBase bullet;
+    [SerializeField] float viewRadious;
+    [SerializeField] float fireRate;
+
+    Transform targetTransform;
+    float timer;
+
+    Collider[] colliders;
 
     protected override void Awake()
     {
@@ -12,28 +19,42 @@ public class GenericEnemy : CharacterBase
         OnDeath += Death;
     }
 
-
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Attack();
+        colliders = Physics.OverlapSphere(transform.position, viewRadious);
+
+        foreach (var item in colliders)
+        {
+            PlayerData player = item.GetComponentInParent<PlayerData>();
+            if (player != null)
+            {
+                timer += Time.deltaTime;
+                if (timer >= fireRate)
+                    Attack(player.transform);
+            }
+        }
     }
 
-    void Attack()
+    void Attack(Transform target)
     {
-        //if (bullet != null)
-        //{
-        //    BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.right, this.gameObject);
-        //    BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.forward, this.gameObject);
-        //    BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.back, this.gameObject);
-        //    BulletPoolManager.instance.TakeBullet(bullet).Shoot(transform.position + Vector3.up * 0.5f, Vector3.left, this.gameObject);
-        //}
+        timer = 0f;
+        BulletPoolManager.instance.Shoot(bullet, transform.position, target.position - transform.position, this.gameObject);
     }
 
     void Death(IDamageable _damageable)
     {
         OnDeath -= Death;
         Destroy(gameObject);
+    }
+
+    public override void TakeDamage(int _damage)
+    {
+        base.TakeDamage(_damage);
+        timer = 0;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, viewRadious);
     }
 }

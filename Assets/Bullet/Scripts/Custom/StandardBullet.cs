@@ -13,7 +13,7 @@ public class StandardBullet : BulletBase
     public override void Shoot(Vector3 shootPosition, Vector3 direction, GameObject _shootable)
     {
         base.Shoot(shootPosition, direction, _shootable);
-        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z), Vector3.up);
     }
 
     protected override void Tick()

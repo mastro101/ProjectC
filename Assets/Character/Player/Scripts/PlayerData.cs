@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerData : CharacterBase
 {
@@ -26,4 +28,15 @@ public class PlayerData : CharacterBase
     public System.Action OnSlowMoStarted;
     public System.Action<float> OnSlowMoUse;
     public System.Action OnRefilled;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        OnDeath += (ctx) => Restart();
+    }
+
+    private void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
