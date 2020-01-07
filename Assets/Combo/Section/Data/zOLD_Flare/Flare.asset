@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4648aa64f5d5c194391bda96e0d08f5c, type: 3}
+  m_Name: Flare
+  m_EditorClassIdentifier: 
+  inputDatas:
+  - {fileID: 11400000, guid: 6c32d9fb331976243887b7399cb2d70f, type: 2}
+  - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}
+  - {fileID: 11400000, guid: b3adf4fad296f8949854c205ba734953, type: 2}
+  - {fileID: 11400000, guid: 6c32d9fb331976243887b7399cb2d70f, type: 2}
+  flarePrefab: {fileID: 3466907262301439822, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
+    type: 3}
