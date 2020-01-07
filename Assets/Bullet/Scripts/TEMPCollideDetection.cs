@@ -18,7 +18,7 @@ public class TEMPCollideDetection : MonoBehaviour
             IDamageable damageable = other.GetComponentInParent<IDamageable>();
             if (damageable != null)
             {
-                if (damageable.gameObject != bullet.shootable)
+                if (damageable.gameObject != bullet.shooter.gameObject)
                     bullet.OnDamageableCollide(damageable);
             }
         }

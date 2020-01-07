@@ -9595,10 +9595,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 1
+  vfx: {fileID: 2833115021880217422}
   duration: 1
   damage: 1
-  shootable: {fileID: 0}
-  vfx: {fileID: 6586500018821149934}
 --- !u!1 &6923371756527569492
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ public abstract class CharacterBase : MonoBehaviour, IDamageable
 {
     #region Serialized
     [SerializeField] int _currentHealth;
-    [SerializeField] int _maxHealth; 
+    [SerializeField] int _maxHealth;
     #endregion
 
     public int currentHealth { get => _currentHealth; set { _currentHealth = value; if (_currentHealth <= 0) OnDeath?.Invoke(this); } }

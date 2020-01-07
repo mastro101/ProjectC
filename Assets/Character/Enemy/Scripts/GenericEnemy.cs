@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenericEnemy : CharacterBase
+public class GenericEnemy : CharacterBase , IShooter
 {
     [SerializeField] BulletBase bullet;
     [SerializeField] float viewRadious;
@@ -12,6 +13,10 @@ public class GenericEnemy : CharacterBase
     float timer;
 
     Collider[] colliders;
+
+    public Vector3 aimDirection { get; set; }
+
+    public Action OnDestroy { get; set; }
 
     protected override void Awake()
     {
@@ -28,6 +33,7 @@ public class GenericEnemy : CharacterBase
             PlayerData player = item.GetComponentInParent<PlayerData>();
             if (player != null)
             {
+                aimDirection = player.transform.position - transform.position;
                 timer += Time.deltaTime;
                 if (timer >= fireRate)
                     Attack(player.transform);
@@ -38,7 +44,7 @@ public class GenericEnemy : CharacterBase
     void Attack(Transform target)
     {
         timer = 0f;
-        BulletPoolManager.instance.Shoot(bullet, transform.position, target.position - transform.position, this.gameObject);
+        BulletPoolManager.instance.Shoot(bullet, transform.position, aimDirection, this);
     }
 
     void Death(IDamageable _damageable)

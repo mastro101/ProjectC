@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControllerInput : MonoBehaviour , ICommandController
+public class PlayerControllerInput : MonoBehaviour , IShooter
 {
     [SerializeField] InputContainer inputsData;
     [SerializeField] PlayerData playerData;
@@ -64,6 +64,10 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
     private void Update()
     {
+        if ((stickAxis.x < -0.1f || stickAxis.x > 0.1f) || (stickAxis.z < -0.1f || stickAxis.z > 0.1f))
+        {
+
+        }
         HandleSequence();
         Aim();
         HandleFire();
@@ -76,14 +80,25 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
     #endregion
 
     #region OtherInputHandler
+    bool usingJoypad = false;
+
     Vector3 stickAxis;
-    Vector3 lookDirection;
+    Vector3 keyAxis;
+    Vector3 stickDirection;
+    Vector3 transformVelocity;
     void Movement()
     {
-        stickAxis = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.Translate(stickAxis.normalized * playerData.speed * Time.deltaTime, Space.World);
+        stickAxis = new Vector3(Input.GetAxis("HorizontalStick"), 0, Input.GetAxis("VerticalStick"));
+        keyAxis = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        if (usingJoypad)
+            transformVelocity = stickAxis.normalized * playerData.speed * Time.deltaTime;
+        else
+            transformVelocity = keyAxis.normalized * playerData.speed * Time.deltaTime;
+
+        transform.Translate(transformVelocity, Space.World);
         if ((stickAxis.x < -0.1f || stickAxis.x > 0.1f) || (stickAxis.z < -0.1f || stickAxis.z > 0.1f))
-            lookDirection = Quaternion.LookRotation(stickAxis) * Vector3.forward;
+            stickDirection = Quaternion.LookRotation(stickAxis) * Vector3.forward;
         if (spriteCharacter)
         {
             if (stickAxis.x < 0 && spriteCharacter.flipX == true)
@@ -97,16 +112,36 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
         }
     }
 
+    Vector2 mouseVelocity;
     void Aim()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit raycastHit;
-        if (Physics.Raycast(ray, out raycastHit, Mathf.Infinity))
+        mouseVelocity = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        if ((stickAxis.x < -0.1f || stickAxis.x > 0.1f) || (stickAxis.z < -0.1f || stickAxis.z > 0.1f))
         {
-            Vector3 raycastPoint = raycastHit.point;
-            Vector3 pointOnPlayerHight = new Vector3(raycastPoint.x, transform.position.y, raycastPoint.z);
-            Vector3 _direction = pointOnPlayerHight - transform.position;
-            aimDirection = _direction.normalized;
+            aimDirection = stickDirection;
+            usingJoypad = true;
+            Debug.Log("joypad");
+        }
+
+        if ((mouseVelocity.x < -0.1f || mouseVelocity.x > 0.1f || mouseVelocity.y < -0.1f || mouseVelocity.y > 0.1f ||
+            keyAxis.x < -0.1f || keyAxis.x > 0.1f || keyAxis.y < -0.1f || keyAxis.y > 0.1f || Input.GetKeyDown(KeyCode.Mouse0)) && usingJoypad == true)
+        {
+            usingJoypad = false;
+            Debug.Log("mouse");
+        }
+
+        if (usingJoypad == false)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(ray, out raycastHit, Mathf.Infinity))
+            {
+                Vector3 raycastPoint = raycastHit.point;
+                Vector3 pointOnPlayerHight = new Vector3(raycastPoint.x, transform.position.y, raycastPoint.z);
+                Vector3 _direction = pointOnPlayerHight - transform.position;
+                aimDirection = _direction.normalized;
+            }
         }
     }
 
@@ -118,7 +153,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
             if (Input.GetAxis("Fire1") > 0 && shooted == false)
             {
                 shooted = true;
-                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, lookDirection, this.gameObject);
+                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, aimDirection, this);
             }
             else if (Input.GetAxis("Fire1") <= 0 && shooted == true)
             {
@@ -127,7 +162,7 @@ public class PlayerControllerInput : MonoBehaviour , ICommandController
 
             if (Input.GetButtonDown("Fire2"))
             {
-                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, aimDirection, this.gameObject);
+                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, aimDirection, this);
             }
         }
     } 

@@ -7,7 +7,7 @@ public class CommandMegaFlare : CommandSequenceBase
 {
     [SerializeField] FireBullet flarePrefab;
 
-    public CommandMegaFlare(ICommandController controller, params InputData[] inputDatas) : base(controller, inputDatas)
+    public CommandMegaFlare(IShooter controller, params InputData[] inputDatas) : base(controller, inputDatas)
     {
 
     }
@@ -15,6 +15,7 @@ public class CommandMegaFlare : CommandSequenceBase
     public override void Execute()
     {
         base.Execute();
-        BulletPoolManager.instance.TakeBullet(flarePrefab).Shoot(controller.transform.position, controller.aimDirection, controller.gameObject);
+        if (skillPrefab)
+            BulletPoolManager.instance.TakeBullet(flarePrefab).Shoot(controller.transform.position, controller.aimDirection, controller);
     }
 }

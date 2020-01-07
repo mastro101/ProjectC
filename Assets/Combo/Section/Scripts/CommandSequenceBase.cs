@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewSection", menuName = "Combo/Section")]
 public class CommandSequenceBase : ScriptableObject
 {
-    protected ICommandController controller;
+    protected IShooter controller;
     [SerializeField] public InputData[] inputDatas;
+    [SerializeField] protected BulletBase skillPrefab;
 
     public InputData currentInput { get; private set; }
     public System.Action<CommandSequenceBase> onStartSequence;
@@ -16,13 +18,13 @@ public class CommandSequenceBase : ScriptableObject
     int currentInputIndex = 0;
     bool complated;
 
-    public CommandSequenceBase(ICommandController controller, params InputData[] inputDatas)
+    public CommandSequenceBase(IShooter controller, params InputData[] inputDatas)
     {
         this.controller = controller;
         this.inputDatas = inputDatas;
     }
 
-    public virtual void Init(ICommandController controller)
+    public virtual void Init(IShooter controller)
     {
         this.controller = controller;
         currentInputIndex = 0;
@@ -37,7 +39,8 @@ public class CommandSequenceBase : ScriptableObject
 
     public virtual void Execute()
     {
-        Debug.Log("COMBO");
+        if (skillPrefab)
+            BulletPoolManager.instance.TakeBullet(skillPrefab).Shoot(controller.transform.position, controller.aimDirection, controller);
     }
 
     public void HandleInputSequence()

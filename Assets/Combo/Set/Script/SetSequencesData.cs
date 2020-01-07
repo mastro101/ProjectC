@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Set", menuName = "SetCombo")]
+[CreateAssetMenu(fileName = "NewSet", menuName = "Combo/Set")]
 public class SetSequencesData : ScriptableObject
 {
-    ICommandController controller;
+    IShooter controller;
     public CommandSequenceBase[] comboSections;
     public int level;
     public int exp;
@@ -20,7 +20,7 @@ public class SetSequencesData : ScriptableObject
     int currentSectionIndex;
     bool completed;
 
-    public virtual void Init(ICommandController controller)
+    public virtual void Init(IShooter controller)
     {
         this.controller = controller;
         currentSectionIndex = 0;

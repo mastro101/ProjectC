@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Blockout.unity
     guid: d3449f9af1e33d444bea5e0455b13585
+  - enabled: 1
+    path: Assets/Scenes/Dungeon RoomProva/Room_prova.unity
+    guid: a66f1e92c98b3aa469c379e0b80a2711
   m_configObjects: {}

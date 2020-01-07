@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class FireBullet : BulletBase
 {
-    [SerializeField] ParticleSystem vfx;
 
-    public override void Shoot(Vector3 shootPosition, Vector3 direction, GameObject _shootable)
+    public override void Shoot(Vector3 shootPosition, Vector3 direction, IShooter _shooter)
     {
-        base.Shoot(shootPosition, direction, _shootable);
+        base.Shoot(shootPosition, direction, _shooter);
         vfx.Play();
     }
 
