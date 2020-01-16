@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboSections:
   - {fileID: 11400000, guid: 57987cc39e399c64fbfb08985e083a09, type: 2}
-  level: 1
+  - {fileID: 11400000, guid: 110cec707223e4c428b17cb2ae052ca1, type: 2}
+  - {fileID: 11400000, guid: 57987cc39e399c64fbfb08985e083a09, type: 2}
+  level: 2
   exp: 0
   cooldown: 0

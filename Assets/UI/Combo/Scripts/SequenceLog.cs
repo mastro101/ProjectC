@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SequenceLog : MonoBehaviour
 {
-    [SerializeField] PlayerData player;
+    [SerializeField] PlayerControllerInput player;
     [Space]
     [SerializeField] GameObject key;
     [SerializeField] GameObject xBox;
@@ -24,19 +24,19 @@ public class SequenceLog : MonoBehaviour
         }
     }
 
-    void InstantiateSequenceView(GameObject go, SetSequencesData sequence)
+    void InstantiateSequenceView(GameObject go, SetSequences sequence)
     {
-        for (int i = 0; i < sequence.level; i++)
+        for (int i = 0; i < sequence.data.level; i++)
         {
             SequenceUI _sequenceUI = Instantiate(sequenceUI, go.transform);
-            foreach (var input in sequence.comboSections[i].inputDatas)
+            foreach (var input in sequence.commands[i].data.inputDatas)
             {
                 Image inputImage = Instantiate(IconPrefab, _sequenceUI.inputList);
                 if (go == key) inputImage.sprite = input.keySprite;
                 else if (go == xBox) inputImage.sprite = input.XboxSprite;
                 else if (go == play) inputImage.sprite = input.PSSprite;
             }
-            _sequenceUI.Init(sequence.comboSections[i]);
+            _sequenceUI.Init(sequence.commands[i]);
         }
         SequenceUI _sequenceUIEmpty = Instantiate(sequenceUI, go.transform);
     }

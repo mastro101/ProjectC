@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,13 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
     public System.Action<InputData> OnInputPressed { get; set; }
     public System.Action OnInputReset { get; set; }
 
-    public List<SetSequencesData> currentSequencesSet { get; private set; }
-    SetSequencesData executedSequence;
+    public List<SetSequences> sequences { get; private set; }
+    public List<SetSequences> currentSequencesSet { get; private set; }
+    public List<SetSequences> sequencesToRemove;
+    SetSequences executedSequence;
     public List<InputData> currentInputSequence { get; private set; }
+
+    public InputData currentInput { get; private set; }
 
     bool sequenceStarted = false;
     int consecutiveButtonPressed = -1;
@@ -27,35 +32,38 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
     float sequenceRemainTime;
 
     #region Mono
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
 
-        currentSequencesSet = new List<SetSequencesData>();
+        sequences = new List<SetSequences>(); 
+        currentSequencesSet = new List<SetSequences>();
         currentInputSequence = new List<InputData>();
-        foreach (var sequence in playerData.sequences)
+        sequencesToRemove = new List<SetSequences>();
+        foreach (var sequenceData in playerData.sequences)
         {
-            sequence.Init(this);
+            SetSequences sequence = new SetSequences(sequenceData, this, this);
             sequence.onStartSequence    += StartSequence;
             //sequence.onCompletedSet   += OnCorrectSequence;
             sequence.onCompletedSection += OnCorrectSequence;
-            foreach (var section in sequence.comboSections)
+            foreach (var section in sequence.commands)
             {
                 section.onCorrectInput  += OnCorrectInput;
             }
+            sequences.Add(sequence);
         }
     }
 
     private void OnDisable()
     {
         OnDestroy?.Invoke();
-        foreach (var sequence in playerData.sequences)
+        foreach (var sequence in sequences)
         {
             sequence.ResetSequence();
             sequence.onStartSequence    -= StartSequence;
             //sequence.onCompletedSet   -= OnCorrectSequence;
             sequence.onCompletedSection -= OnCorrectSequence;
-            foreach (var section in sequence.comboSections)
+            foreach (var section in sequence.commands)
             {
                 section.onCorrectInput  -= OnCorrectInput;
             }
@@ -64,13 +72,10 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
 
     private void Update()
     {
-        if ((stickAxis.x < -0.1f || stickAxis.x > 0.1f) || (stickAxis.z < -0.1f || stickAxis.z > 0.1f))
-        {
-
-        }
         HandleSequence();
         Aim();
         HandleFire();
+        HandleDash();
     }
 
     private void FixedUpdate()
@@ -78,6 +83,12 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         Movement();
     }
     #endregion
+
+    private void HandleDash()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            playerData.TempInvulnerability(5f);
+    }
 
     #region OtherInputHandler
     bool usingJoypad = false;
@@ -176,7 +187,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         if (sequenceStarted == false)
         {
             HandleInput();
-            foreach (var sequence in playerData.sequences)
+            foreach (var sequence in sequences)
             {
                 sequence.HandleSetSequences();
             }
@@ -184,6 +195,12 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         else
         {
             HandleInput();
+            foreach (var sequence in sequencesToRemove)
+            {
+                currentSequencesSet.Remove(sequence);
+            }
+            sequencesToRemove.Clear();
+
             foreach (var sequence in currentSequencesSet)
             {
                 sequence.HandleSetSequences();
@@ -217,7 +234,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         }
     }
 
-    void StartSequence(SetSequencesData s)
+    void StartSequence(SetSequences s)
     {
         if (sequenceStarted == false)
         {
@@ -226,7 +243,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         currentSequencesSet.Add(s);
     }
 
-    void OnCorrectSequence(SetSequencesData s)
+    void OnCorrectSequence(SetSequences s)
     {
         executedSequence = s;
     }
@@ -236,7 +253,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         if (!buttonJustPressed)
         {
             currentInputSequence.Add(input);
-            OnInputPressed?.Invoke(input);
+            //OnInputPressed?.Invoke(input);
             consecutiveButtonPressed++;
             buttonJustPressed = true;
         }

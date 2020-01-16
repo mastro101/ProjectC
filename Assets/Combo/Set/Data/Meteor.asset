@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ba962d5db305d44b5149e8d4c88830, type: 3}
   m_Name: Meteor
   m_EditorClassIdentifier: 
-  comboSections: []
-  level: 0
+  comboSections:
+  - {fileID: 11400000, guid: 2ae9ce2e252411f46bd15fc8a672c26c, type: 2}
+  - {fileID: 11400000, guid: 13f1e17bd7d253c4e9605a8a03d95a54, type: 2}
+  - {fileID: 11400000, guid: ceb20978cb317fa44866f11007cd5843, type: 2}
+  level: 3
   exp: 0
   cooldown: 0

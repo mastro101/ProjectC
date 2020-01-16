@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ba962d5db305d44b5149e8d4c88830, type: 3}
   m_Name: Spear
   m_EditorClassIdentifier: 
-  comboSections: []
-  level: 0
+  comboSections:
+  - {fileID: 11400000, guid: 28b2f3a577975a4478b13ef5a54d42fb, type: 2}
+  - {fileID: 11400000, guid: 26e67162ec29595459d9c70ff59178f3, type: 2}
+  - {fileID: 11400000, guid: afb85d0032a6c184bb49097a843b64a6, type: 2}
+  level: 3
   exp: 0
   cooldown: 0

@@ -16,5 +16,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7955f2b022df0fd4195defee1e0f6450, type: 2}
   - {fileID: 11400000, guid: 7955f2b022df0fd4195defee1e0f6450, type: 2}
   - {fileID: 11400000, guid: 7955f2b022df0fd4195defee1e0f6450, type: 2}
+  skillPrefab: {fileID: 8302164909158169853, guid: ca449563069c1924eab05bf3a2f74deb,
+    type: 3}
   flarePrefab: {fileID: 3466907262301439822, guid: 2f5a8b2a8cdafbb4c8fb98f3f6df6214,
     type: 3}
