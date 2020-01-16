@@ -17,6 +17,7 @@ public interface IDamageable
     System.Action<IDamageable> OnDeath { get; set; }
 
     void TakeDamage(int _damage);
-    void Stun();
+    void Stun(float _duration);
+    void KnockBack(float _force);
     void TempInvulnerability(float _duration);
 }

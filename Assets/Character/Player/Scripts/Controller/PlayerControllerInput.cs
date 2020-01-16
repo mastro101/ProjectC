@@ -9,6 +9,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
     [SerializeField] PlayerData playerData;
     [SerializeField] Transform shootPosition;
     [SerializeField] SpriteRenderer spriteCharacter;
+    [SerializeField] Animator animator;
 
     Rigidbody rb;
 
@@ -44,7 +45,6 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         {
             SetSequences sequence = new SetSequences(sequenceData, this, this);
             sequence.onStartSequence    += StartSequence;
-            //sequence.onCompletedSet   += OnCorrectSequence;
             sequence.onCompletedSection += OnCorrectSequence;
             foreach (var section in sequence.commands)
             {
@@ -61,7 +61,6 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         {
             sequence.ResetSequence();
             sequence.onStartSequence    -= StartSequence;
-            //sequence.onCompletedSet   -= OnCorrectSequence;
             sequence.onCompletedSection -= OnCorrectSequence;
             foreach (var section in sequence.commands)
             {
@@ -75,7 +74,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         HandleSequence();
         Aim();
         HandleFire();
-        HandleDash();
+        HandleDodge();
     }
 
     private void FixedUpdate()
@@ -84,14 +83,50 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
     }
     #endregion
 
-    private void HandleDash()
+    bool canDash = true;
+
+    IEnumerator dodgeCorutine;
+    private void HandleDodge()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            playerData.TempInvulnerability(5f);
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton5)) && canDash && canMove)
+        {
+            dodgeCorutine = Dodge();
+            StartCoroutine(dodgeCorutine);
+        }
+    }
+
+    float dodgeTimer = 0;
+    IEnumerator Dodge()
+    {
+        canMove = false;
+        playerData.TempInvulnerability(playerData.dodgeDuration);
+        Debug.Log("start dash");
+        Vector3 dodgeVelocity;
+        if (usingJoypad)
+            dodgeVelocity = stickAxis.normalized * playerData.dodgeSpeed * Time.deltaTime;
+        else
+            dodgeVelocity = keyAxis.normalized * playerData.dodgeSpeed * Time.deltaTime;
+
+        while (dodgeTimer < playerData.dodgeDuration)
+        {
+            dodgeTimer += Time.deltaTime;
+            transform.Translate(dodgeVelocity, Space.World);
+            yield return null;
+        }
+        dodgeTimer = 0;
+
+        Debug.Log("end dash");
+        canMove = true;
+
+        yield return new WaitForSeconds(playerData.dodgeCooldown - playerData.dodgeDuration);
+        canDash = true;
+        Debug.Log("can dash");
+        yield return null;
     }
 
     #region OtherInputHandler
     bool usingJoypad = false;
+    bool canMove = true;
 
     Vector3 stickAxis;
     Vector3 keyAxis;
@@ -107,9 +142,41 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         else
             transformVelocity = keyAxis.normalized * playerData.speed * Time.deltaTime;
 
-        transform.Translate(transformVelocity, Space.World);
+        if (canMove)
+        {
+            transform.Translate(transformVelocity, Space.World);
+            Debug.Log(transformVelocity);
+        }
+        
+        if (animator != null)
+        {
+            if (transformVelocity.x < -0.05f)
+            {
+                animator.SetTrigger("Left");
+            }
+            else if (transformVelocity.x > 0.05f)
+            {
+                animator.SetTrigger("Right");
+            }
+            else if (transformVelocity.z < -0.05f)
+            {
+                animator.SetTrigger("Down");
+            }
+            else if (transformVelocity.z > 0.05f)
+            {
+                animator.SetTrigger("Up");
+            }
+
+            if (transformVelocity == Vector3.zero)
+                animator.SetTrigger("Idle");
+        }
+
+        //TODO: non va per un cazzo
         if ((stickAxis.x < -0.1f || stickAxis.x > 0.1f) || (stickAxis.z < -0.1f || stickAxis.z > 0.1f))
+        {
             stickDirection = Quaternion.LookRotation(stickAxis) * Vector3.forward;
+        }
+
         if (spriteCharacter)
         {
             if (stickAxis.x < 0 && spriteCharacter.flipX == true)

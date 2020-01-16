@@ -25,10 +25,7 @@ public class StandardBullet : BulletBase
     public override void OnDamageableCollide(IDamageable damageable)
     {
         base.OnDamageableCollide(damageable);
-        Vector3 knockbackDirection = damageable.transform.position - transform.position;
-        knockbackDirection.y = 0;
-        knockbackDirection = knockbackDirection.normalized * knockbackForce;
-        damageable.myRigidbody.AddForce(knockbackDirection, ForceMode.Impulse);
+        damageable.KnockBack(knockbackForce);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         for (int i = 0; i < colliders.Length; i++)

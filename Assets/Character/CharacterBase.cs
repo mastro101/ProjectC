@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class CharacterBase : MonoBehaviour, IDamageable
 {
     #region Serialized
+    [Header("Health")]
     [SerializeField] int _currentHealth;
     [SerializeField] int _maxHealth;
     #endregion
@@ -18,6 +19,7 @@ public abstract class CharacterBase : MonoBehaviour, IDamageable
 
     public Rigidbody myRigidbody { get; private set; }
     public bool invulnerable { get; set; }
+    public bool canMove;
 
     public virtual void TakeDamage(int _damage)
     {
@@ -29,9 +31,17 @@ public abstract class CharacterBase : MonoBehaviour, IDamageable
         }
     }
 
-    public virtual void Stun()
+    public virtual void Stun(float _duration)
     {
         Debug.Log("Stunned");
+    }
+
+    public virtual void KnockBack(float _force)
+    {
+        Vector3 knockbackDirection = transform.position - transform.position;
+        knockbackDirection.y = 0;
+        knockbackDirection = knockbackDirection.normalized * _force;
+        myRigidbody.AddForce(knockbackDirection, ForceMode.Impulse);
     }
 
     protected virtual void Awake()

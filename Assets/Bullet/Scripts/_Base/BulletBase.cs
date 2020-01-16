@@ -83,7 +83,7 @@ public class BulletBase : MonoBehaviour
             IDamageable damageable = other.GetComponentInParent<IDamageable>();
             if (damageable != null)
             {
-                if (damageable.gameObject != shooter.gameObject)
+                if (damageable.gameObject != shooter.gameObject && damageable.invulnerable == false)
                     OnDamageableCollide(damageable);
             }
         }
