@@ -45,7 +45,7 @@ public class SetSequences
 
     void CheckPressedInput(InputData input)
     {
-
+        if (currentSectionIndex < commands.Count)
             commands[currentSectionIndex].CheckPressedInput(input);
     }
 

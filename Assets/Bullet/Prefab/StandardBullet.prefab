@@ -139,7 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  duration: 1
+  vfx: {fileID: 0}
+  _duration: 1
   damage: 1
   speed: 12
   knockbackForce: 5

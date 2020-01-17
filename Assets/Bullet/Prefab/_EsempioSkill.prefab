@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 8743769983632603072}
   - component: {fileID: 5766456046006205545}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: _EsempioSkill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 3
   vfx: {fileID: 8743769983632603072}
-  duration: 2
+  _duration: 2
   damage: 1
 --- !u!114 &8396022234812573348
 MonoBehaviour:

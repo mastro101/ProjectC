@@ -15,7 +15,7 @@ MonoBehaviour:
   comboSections:
   - {fileID: 11400000, guid: 57987cc39e399c64fbfb08985e083a09, type: 2}
   - {fileID: 11400000, guid: 110cec707223e4c428b17cb2ae052ca1, type: 2}
-  - {fileID: 11400000, guid: 57987cc39e399c64fbfb08985e083a09, type: 2}
-  level: 2
+  - {fileID: 11400000, guid: 69249975c51b12740a2ae5e58ad9b909, type: 2}
+  level: 3
   exp: 0
   cooldown: 0

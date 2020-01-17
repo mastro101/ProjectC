@@ -10,6 +10,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
     [SerializeField] Transform shootPosition;
     [SerializeField] SpriteRenderer spriteCharacter;
     [SerializeField] Animator animator;
+    [SerializeField] Collider collider;
 
     Rigidbody rb;
 
@@ -99,28 +100,39 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
     IEnumerator Dodge()
     {
         canMove = false;
+        rb.useGravity = false;
+        collider.isTrigger = true;
+        
         playerData.TempInvulnerability(playerData.dodgeDuration);
-        Debug.Log("start dash");
         Vector3 dodgeVelocity;
         if (usingJoypad)
             dodgeVelocity = stickAxis.normalized * playerData.dodgeSpeed * Time.deltaTime;
         else
             dodgeVelocity = keyAxis.normalized * playerData.dodgeSpeed * Time.deltaTime;
 
+        RaycastHit hit;
         while (dodgeTimer < playerData.dodgeDuration)
         {
             dodgeTimer += Time.deltaTime;
+            if (Physics.Raycast(transform.position, dodgeVelocity.normalized, out hit, 0.5f))
+            {
+                if (hit.transform.gameObject.tag == "Wall")
+                {
+                    yield return null;
+                    continue;
+                }
+            }
             transform.Translate(dodgeVelocity, Space.World);
             yield return null;
         }
         dodgeTimer = 0;
 
-        Debug.Log("end dash");
+        rb.useGravity = true;
+        collider.isTrigger = false;
         canMove = true;
 
         yield return new WaitForSeconds(playerData.dodgeCooldown - playerData.dodgeDuration);
         canDash = true;
-        Debug.Log("can dash");
         yield return null;
     }
 
@@ -145,7 +157,6 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         if (canMove)
         {
             transform.Translate(transformVelocity, Space.World);
-            Debug.Log(transformVelocity);
         }
         
         if (animator != null)
@@ -171,7 +182,6 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
                 animator.SetTrigger("Idle");
         }
 
-        //TODO: non va per un cazzo
         if ((stickAxis.x < -0.1f || stickAxis.x > 0.1f) || (stickAxis.z < -0.1f || stickAxis.z > 0.1f))
         {
             stickDirection = Quaternion.LookRotation(stickAxis) * Vector3.forward;

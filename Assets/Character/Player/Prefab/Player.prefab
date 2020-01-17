@@ -495,16 +495,15 @@ MonoBehaviour:
   _maxHealth: 10
   canMove: 0
   speed: 5
-  dodgeDuration: 0
-  dodgeSpeed: 0
-  dodgeCooldown: 0
+  dodgeDuration: 1
+  dodgeSpeed: 10
+  dodgeCooldown: 2
   slowMoPercent: 0.5
   timeForSlowMo: 5
   bullet: {fileID: 8302164909158169853, guid: ca449563069c1924eab05bf3a2f74deb, type: 3}
   timeForSequence: 0.2
   sequences:
-  - {fileID: 11400000, guid: bdccf075ea2a0e646a2b5a356cc43558, type: 2}
-  - {fileID: 11400000, guid: fa1ce74351bb7a54fad8960ca5074957, type: 2}
+  - {fileID: 11400000, guid: e74782ab56f8b804a964b8552e74c4fd, type: 2}
 --- !u!114 &8412846717692124059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,6 +521,7 @@ MonoBehaviour:
   shootPosition: {fileID: 9057343488219251839}
   spriteCharacter: {fileID: 0}
   animator: {fileID: 6532683086712044569}
+  collider: {fileID: 1493901287273371521}
 --- !u!114 &6348279765535206448
 MonoBehaviour:
   m_ObjectHideFlags: 0

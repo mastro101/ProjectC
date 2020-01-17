@@ -7,19 +7,21 @@ public class BulletBase : MonoBehaviour
 {
     public int ID;
     [SerializeField] protected ParticleSystem vfx;
-    [SerializeField] float duration;
+    [SerializeField] float _duration;
     //TODO: Da considerare temporaneo fino ulteriori informazioni
     [SerializeField] int damage;
     //
+
+    public float duration { get { return _duration; } }
 
     public State state { get; set; }
     public bool created { get; set; }
     float returnTime;
     [HideInInspector] public IShooter shooter;
-    public Vector3 newWorldPosition { private get; set; }
-    public Vector3 newLocalPosition { private get; set; }
 
+    public Action OnPreShoot;
     public Action OnShoot;
+    public Action OnDamage;
     public Action OnReturn;
 
     protected virtual void Tick()
@@ -34,7 +36,8 @@ public class BulletBase : MonoBehaviour
         shooter = _shooter;
         transform.position = shootPosition;
         state = State.Shooted;
-        returnTime = Time.time + duration;
+        returnTime = Time.time + _duration;
+        OnPreShoot?.Invoke();
         OnShoot?.Invoke();
         if (vfx != null)
             vfx.Play();
@@ -47,13 +50,14 @@ public class BulletBase : MonoBehaviour
             vfx.Stop();
             vfx.Clear();
         }
-        BulletPoolManager.instance.ReturnBullet(this);
         OnReturn?.Invoke();
+        BulletPoolManager.instance.ReturnBullet(this);
     }
     #endregion
 
     public virtual void OnDamageableCollide(IDamageable damageable)
     {
+        OnDamage?.Invoke();
         damageable.TakeDamage(damage);
     }
 
