@@ -9,6 +9,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
     [SerializeField] PlayerData playerData;
     [SerializeField] Transform _shootPosition;
     [SerializeField] SpriteRenderer spriteCharacter;
+    [SerializeField] Transform pointer;
     [SerializeField] Animator animator;
     [SerializeField] Collider collider;
 
@@ -85,6 +86,8 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
     }
     #endregion
 
+
+    #region OtherInputHandler
     bool canDash = true;
 
     IEnumerator dodgeCorutine;
@@ -137,7 +140,6 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
         yield return null;
     }
 
-    #region OtherInputHandler
     bool usingJoypad = false;
     bool canMove = true;
 
@@ -190,13 +192,13 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
 
         if (spriteCharacter)
         {
-            if (stickAxis.x < 0 && spriteCharacter.flipX == true)
-            {
-                spriteCharacter.flipX = false;
-            }
-            else if (stickAxis.x > 0 && spriteCharacter.flipX == false)
+            if (stickAxis.x < 0 && spriteCharacter.flipX == false)
             {
                 spriteCharacter.flipX = true;
+            }
+            else if (stickAxis.x > 0 && spriteCharacter.flipX == true)
+            {
+                spriteCharacter.flipX = false;
             }
         }
     }
@@ -232,6 +234,9 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
                 aimDirection = _direction.normalized;
             }
         }
+
+        if (pointer)
+            pointer.rotation = Quaternion.LookRotation(aimDirection, Vector3.forward) * Quaternion.Euler(0, -90, 0);
     }
 
     bool shooted;
