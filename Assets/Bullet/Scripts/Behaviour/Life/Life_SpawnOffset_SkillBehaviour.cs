@@ -5,12 +5,12 @@ using UnityEngine;
 public class Life_SpawnOffset_SkillBehaviour : BaseSkillBehaviour
 {
     [SerializeField]
-    [Tooltip("Sposta la posizione di spawn (valore di 0,0,0 equivale alla posizione del player)")]
+    [Tooltip("Sposta la posizione di spawn (valore di 0,0,0 equivale alla posizione del shootPosition del Player)")]
     Vector3 offsetPositionOnShoot;
 
     protected override void OnPreShoot()
     {
         base.OnPreShoot();
-        skill.transform.position = skill.shooter.transform.position + offsetPositionOnShoot;
+        skill.transform.position = skill.shooter.shootPosition + offsetPositionOnShoot;
     }
 }

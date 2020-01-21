@@ -8,12 +8,14 @@ public class GenericEnemy : CharacterBase , IShooter
     [SerializeField] BulletBase bullet;
     [SerializeField] float viewRadious;
     [SerializeField] float fireRate;
+    [SerializeField] Transform _shootPosition;
 
     Transform targetTransform;
     float timer;
 
     Collider[] colliders;
 
+    public Vector3 shootPosition { get { return _shootPosition.position; } }
     public Vector3 aimDirection { get; set; }
 
     public Action OnDestroy { get; set; }
@@ -44,7 +46,7 @@ public class GenericEnemy : CharacterBase , IShooter
     void Attack(Transform target)
     {
         timer = 0f;
-        BulletPoolManager.instance.Shoot(bullet, transform.position, aimDirection, this);
+        BulletPoolManager.instance.Shoot(bullet, shootPosition, aimDirection, this);
     }
 
     void Death(IDamageable _damageable)
@@ -59,7 +61,7 @@ public class GenericEnemy : CharacterBase , IShooter
         timer = 0;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, viewRadious);
     }

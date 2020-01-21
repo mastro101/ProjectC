@@ -90,7 +90,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1850486846370112356}
   - component: {fileID: 6221806430325943687}
-  - component: {fileID: 8302164909158169853}
+  - component: {fileID: 6082933605966657830}
+  - component: {fileID: 4602398419954075930}
+  - component: {fileID: 8905947455092619994}
+  - component: {fileID: 1624102721921729856}
+  - component: {fileID: 1114335957702887809}
   m_Layer: 0
   m_Name: StandardBullet
   m_TagString: Untagged
@@ -126,7 +130,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.2169055
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8302164909158169853
+--- !u!114 &6082933605966657830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,15 +139,65 @@ MonoBehaviour:
   m_GameObject: {fileID: 6636763792544498978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b5544e2460827044b8f978f8e0e3465, type: 3}
+  m_Script: {fileID: 11500000, guid: 9488e0f67f65b6c45b8d62a62bb7cf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
   vfx: {fileID: 0}
   _duration: 1
   damage: 1
+  friendlyFire: 0
+--- !u!114 &4602398419954075930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6636763792544498978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ce2e854ae3f794587bfb2a8ae25e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   speed: 12
+--- !u!114 &8905947455092619994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6636763792544498978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9853f51c696934195d4318a9db9cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   knockbackForce: 5
-  explosionRadius: 1.5
-  explosionKnockbackForce: 5
-  explosionDamage: 2
+--- !u!114 &1624102721921729856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6636763792544498978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c25e8f7554ee94ca7e3d03ef60943e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+  radius: 1.5
+  knockbackForce: 5
+  friendlyFire: 0
+--- !u!114 &1114335957702887809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6636763792544498978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17509d103ca48794e95acc246fbe9b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

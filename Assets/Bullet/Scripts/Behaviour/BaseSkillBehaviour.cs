@@ -7,13 +7,14 @@ public abstract class BaseSkillBehaviour : MonoBehaviour
 {
     protected BulletBase skill;
 
-    protected virtual void Awake()
+    protected virtual void OnEnable()
     {
         skill = GetComponentInParent<BulletBase>();
-        skill.OnPreShoot += OnPreShoot;
-        skill.OnShoot    += OnShoot;
-        skill.OnDamage   += OnDamage;
-        skill.OnReturn   += OnReturn;
+        skill.OnPreShoot   += OnPreShoot;
+        skill.OnShoot      += OnShoot;
+        skill.OnDamage     += OnDamage;
+        skill.OnPostDamage += OnPostDamage;
+        skill.OnReturn     += OnReturn;
     }
 
     protected virtual void OnPreShoot()
@@ -26,7 +27,12 @@ public abstract class BaseSkillBehaviour : MonoBehaviour
         
     }
 
-    protected virtual void OnDamage()
+    protected virtual void OnDamage(IDamageable _damageable)
+    {
+
+    }
+
+    protected virtual void OnPostDamage()
     {
 
     }
@@ -51,9 +57,10 @@ public abstract class BaseSkillBehaviour : MonoBehaviour
 
     private void OnDisable()
     {
-        skill.OnPreShoot -= OnPreShoot;
-        skill.OnShoot    -= OnShoot;
-        skill.OnDamage   -= OnDamage;
-        skill.OnReturn   -= OnReturn;
+        skill.OnPreShoot   -= OnPreShoot;
+        skill.OnShoot      -= OnShoot;
+        skill.OnDamage     -= OnDamage;
+        skill.OnPostDamage -= OnPostDamage;
+        skill.OnReturn     -= OnReturn;
     }
 }

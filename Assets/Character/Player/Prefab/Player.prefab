@@ -500,7 +500,7 @@ MonoBehaviour:
   dodgeCooldown: 2
   slowMoPercent: 0.5
   timeForSlowMo: 5
-  bullet: {fileID: 8302164909158169853, guid: ca449563069c1924eab05bf3a2f74deb, type: 3}
+  bullet: {fileID: 6082933605966657830, guid: ca449563069c1924eab05bf3a2f74deb, type: 3}
   timeForSequence: 0.2
   sequences:
   - {fileID: 11400000, guid: e74782ab56f8b804a964b8552e74c4fd, type: 2}
@@ -518,7 +518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputsData: {fileID: 11400000, guid: b73fb18749c5ea84a9aa50a71fdc0ea3, type: 2}
   playerData: {fileID: 453915585178577469}
-  shootPosition: {fileID: 9057343488219251839}
+  _shootPosition: {fileID: 9057343488219251839}
   spriteCharacter: {fileID: 0}
   animator: {fileID: 6532683086712044569}
   collider: {fileID: 1493901287273371521}

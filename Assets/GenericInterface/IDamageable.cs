@@ -18,6 +18,6 @@ public interface IDamageable
 
     void TakeDamage(int _damage);
     void Stun(float _duration);
-    void KnockBack(float _force);
+    void KnockBack(float _force, Vector3 _hitPoint);
     void TempInvulnerability(float _duration);
 }

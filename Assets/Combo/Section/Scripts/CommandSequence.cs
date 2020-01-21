@@ -55,7 +55,7 @@ public class CommandSequence
     public virtual void Execute()
     {
         if (data.skillPrefab)
-            BulletPoolManager.instance.TakeBullet(data.skillPrefab).Shoot(controller.transform.position, controller.aimDirection, controller);
+            BulletPoolManager.instance.TakeBullet(data.skillPrefab).Shoot(controller.shootPosition, controller.aimDirection, controller);
     }
 
     public void HandleInputSequence()

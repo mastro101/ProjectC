@@ -7,13 +7,14 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
 {
     [SerializeField] InputContainer inputsData;
     [SerializeField] PlayerData playerData;
-    [SerializeField] Transform shootPosition;
+    [SerializeField] Transform _shootPosition;
     [SerializeField] SpriteRenderer spriteCharacter;
     [SerializeField] Animator animator;
     [SerializeField] Collider collider;
 
     Rigidbody rb;
 
+    public Vector3 shootPosition { get { return _shootPosition.position; } }
     public Vector3 aimDirection { get; private set; }
 
     public System.Action OnDestroy { get; set; }
@@ -241,7 +242,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
             if (Input.GetAxis("Fire1") > 0 && shooted == false)
             {
                 shooted = true;
-                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, aimDirection, this);
+                BulletPoolManager.instance.Shoot(playerData.bullet, _shootPosition.position, aimDirection, this);
             }
             else if (Input.GetAxis("Fire1") <= 0 && shooted == true)
             {
@@ -250,7 +251,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
 
             if (Input.GetButtonDown("Fire2"))
             {
-                BulletPoolManager.instance.Shoot(playerData.bullet, shootPosition.position, aimDirection, this);
+                BulletPoolManager.instance.Shoot(playerData.bullet, _shootPosition.position, aimDirection, this);
             }
         }
     } 

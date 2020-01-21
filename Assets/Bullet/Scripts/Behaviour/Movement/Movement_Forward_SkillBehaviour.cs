@@ -17,6 +17,6 @@ public class Movement_Forward_SkillBehaviour : BaseSkillBehaviour
     protected override void Tick()
     {
         base.Tick();
-        skill.transform.position += direction * Time.deltaTime * speed;
+        skill.transform.position += direction.normalized * Time.deltaTime * speed;
     }
 }

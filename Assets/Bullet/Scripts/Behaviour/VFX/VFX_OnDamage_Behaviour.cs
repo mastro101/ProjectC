@@ -8,7 +8,7 @@ public class VFX_OnDamage_Behaviour : BaseSkillBehaviour
 
     ParticleSystem vfx;
 
-    protected override void OnDamage()
+    protected override void OnDamage(IDamageable _damageable)
     {
         base.OnShoot();
         vfx = Instantiate(vfxPrefab.gameObject, skill.transform.position, Quaternion.LookRotation(skill.shooter.aimDirection)).GetComponent<ParticleSystem>();

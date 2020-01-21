@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Life_DestroyOnDamage_Behaviour : BaseSkillBehaviour
 {
-    protected override void OnDamage()
+    protected override void OnPostDamage()
     {
-        base.OnDamage();
+        base.OnPostDamage();
         skill.Return();
     }
 }

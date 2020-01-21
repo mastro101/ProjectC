@@ -13,14 +13,6 @@ public class TEMPCollideDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (bullet.state == BulletBase.State.Shooted)
-        {
-            IDamageable damageable = other.GetComponentInParent<IDamageable>();
-            if (damageable != null)
-            {
-                if (damageable.gameObject != bullet.shooter.gameObject)
-                    bullet.OnDamageableCollide(damageable);
-            }
-        }
+        bullet.OnEnter(other);
     }
 }

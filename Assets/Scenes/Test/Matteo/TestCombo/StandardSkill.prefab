@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4835179293459076643}
   - component: {fileID: 8582088608375245059}
   - component: {fileID: -449896150452386736}
-  - component: {fileID: 3512341726102584926}
+  - component: {fileID: 3361831739819431070}
   m_Layer: 0
   m_Name: StandardSkill
   m_TagString: Untagged
@@ -67,6 +67,7 @@ MonoBehaviour:
   vfx: {fileID: 5887181797019184148}
   _duration: 5
   damage: 1
+  friendlyFire: 0
 --- !u!114 &4088009166714423956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17509d103ca48794e95acc246fbe9b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3512341726102584926
+--- !u!114 &3361831739819431070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,10 +130,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3115308544829923072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2f0e71ac00e67b429ee4ed9aefb13b9, type: 3}
+  m_Script: {fileID: 11500000, guid: dd9853f51c696934195d4318a9db9cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetPositionOnShoot: {x: 1, y: 0, z: 1}
+  knockbackForce: 10
 --- !u!1001 &3115308544176121235
 PrefabInstance:
   m_ObjectHideFlags: 0

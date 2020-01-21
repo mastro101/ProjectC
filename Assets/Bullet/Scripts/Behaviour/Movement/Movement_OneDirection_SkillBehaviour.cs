@@ -8,9 +8,9 @@ public class Movement_OneDirection_SkillBehaviour : BaseSkillBehaviour
     [SerializeField] float speed;
 
     Vector3 speedVector;
-    protected override void Awake()
+    protected override void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
         speedVector = direction.normalized * speed;
     }
 

@@ -11,6 +11,7 @@ public class BulletBase : MonoBehaviour
     //TODO: Da considerare temporaneo fino ulteriori informazioni
     [SerializeField] int damage;
     //
+    [SerializeField] bool friendlyFire;
 
     public float duration { get { return _duration; } }
 
@@ -21,7 +22,8 @@ public class BulletBase : MonoBehaviour
 
     public Action OnPreShoot;
     public Action OnShoot;
-    public Action OnDamage;
+    public Action<IDamageable> OnDamage;
+    public Action OnPostDamage;
     public Action OnReturn;
 
     protected virtual void Tick()
@@ -57,8 +59,9 @@ public class BulletBase : MonoBehaviour
 
     public virtual void OnDamageableCollide(IDamageable damageable)
     {
-        OnDamage?.Invoke();
+        OnDamage?.Invoke(damageable);
         damageable.TakeDamage(damage);
+        OnPostDamage?.Invoke();
     }
 
     private void OnEnable()
@@ -79,16 +82,26 @@ public class BulletBase : MonoBehaviour
         Shooted,
     }
 
-
     private void OnTriggerEnter(Collider other)
+    {
+        OnEnter(other);
+    }
+
+    public void OnEnter(Collider other)
     {
         if (state == State.Shooted)
         {
             IDamageable damageable = other.GetComponentInParent<IDamageable>();
             if (damageable != null)
             {
-                if (damageable.gameObject != shooter.gameObject && damageable.invulnerable == false)
+                if (!friendlyFire && ((damageable is GenericEnemy && shooter is GenericEnemy) || (damageable is PlayerData && shooter is PlayerControllerInput)))
+                {
+
+                }
+                else if (damageable.gameObject != shooter.gameObject && damageable.invulnerable == false)
+                {
                     OnDamageableCollide(damageable);
+                }
             }
         }
     }
