@@ -9,6 +9,8 @@ public class SetSequences
     IShooter controller;
     PlayerControllerInput playerController;
 
+    public IEnumerator cooldownCorutine;
+
     public List<CommandSequence> commands;
     public CommandSequence currentSection { get; private set; }
     public System.Action<SetSequences> onStartSequence;
@@ -16,6 +18,9 @@ public class SetSequences
     public System.Action<SetSequences> onCompletedSet;
     public System.Action<SetSequences> onResetSequence;
     public System.Action<SetSequences> onWrongInput;
+    public System.Action<SetSequences> onExecute;
+
+    public bool canExecute { get; private set; }
 
     int currentSectionIndex = 0;
     bool completed = false;
@@ -41,6 +46,9 @@ public class SetSequences
         this.controller.OnDestroy += UnsubscribeEvent;
 
         currentSection = commands[0];
+        canExecute = true;
+
+        cooldownCorutine = CooldownCorutine();
     }
 
     void CheckPressedInput(InputData input)
@@ -106,6 +114,18 @@ public class SetSequences
     public void Execute()
     {
         currentSection.Execute();
-        //ResetSequence();
+        canExecute = false;
+        onExecute?.Invoke(this);
+    }
+
+    public void OnCooldownEnd()
+    {
+        canExecute = true;
+    }
+
+    IEnumerator CooldownCorutine()
+    {
+        yield return new WaitForSeconds(data.cooldown);
+        OnCooldownEnd();
     }
 }

@@ -272,7 +272,8 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
             HandleInput();
             foreach (var sequence in sequences)
             {
-                sequence.HandleSetSequences();
+                if (sequence.canExecute)
+                    sequence.HandleSetSequences();
             }
         }
         else
@@ -363,6 +364,7 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
             if (currentSequencesSet.Contains(executedSequence))
             {
                 executedSequence.Execute();
+                StartCoroutine(executedSequence.cooldownCorutine);
                 executedSequence = null;
             }
         }
