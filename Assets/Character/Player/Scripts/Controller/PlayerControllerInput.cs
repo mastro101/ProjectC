@@ -364,6 +364,8 @@ public class PlayerControllerInput : MonoBehaviour , IShooter
             if (currentSequencesSet.Contains(executedSequence))
             {
                 executedSequence.Execute();
+                StopCoroutine(executedSequence.cooldownCorutine);
+                executedSequence.RestartCooldownCorutine();
                 StartCoroutine(executedSequence.cooldownCorutine);
                 executedSequence = null;
             }

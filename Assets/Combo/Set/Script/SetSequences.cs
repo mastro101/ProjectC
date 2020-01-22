@@ -118,6 +118,11 @@ public class SetSequences
         onExecute?.Invoke(this);
     }
 
+    public void RestartCooldownCorutine()
+    {
+        cooldownCorutine = CooldownCorutine();
+    }
+
     public void OnCooldownEnd()
     {
         canExecute = true;
@@ -127,5 +132,6 @@ public class SetSequences
     {
         yield return new WaitForSeconds(data.cooldown);
         OnCooldownEnd();
+        yield return null;
     }
 }
