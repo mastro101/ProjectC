@@ -5,15 +5,31 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public GameObject virtualCamera;
+    
     // Start is called before the first frame update
-    void Start()
+    public virtual void OnTriggerEnter(BoxCollider other)
+     
     {
-        virtualCamera.SetActive(true);
+          if (other.CompareTag ("Player") && !other.isTrigger)
+        {
+            virtualCamera.SetActive(true);
+    }
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void OnTriggerExit(BoxCollider other)
     {
-        //virtualCamera.SetActive(false);
+        {
+            if (other.CompareTag("Player") && !other.isTrigger)
+            {
+                virtualCamera.SetActive(false);
+            }
+        }
     }
+
+
 }
+
+
+
+
